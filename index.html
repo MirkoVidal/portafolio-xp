@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Portafolio - Windows XP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="boot-screen">
+    <img src="images/xp-boot.gif" alt="Cargando...">
+  </div>
+
+  <div id="lock-screen">
+    <div class="lock-screen-box">
+      <img src="images/user-pic.png" alt="User" onclick="logIn()">
+      <span class="lock-screen-user">Mirko Vidal</span>
+      <span class="lock-screen-hint">Haz clic en tu usuario para iniciar sesión</span>
+    </div>
+  </div>
+
+  <div class="taskbar">
+    <div class="start-button">
+      <img src="images/start-button.png" alt="Inicio">
+      <span></span>
+    </div>
+    <div class="taskbar-windows">
+      </div>
+    <div class="taskbar-clock" id="clock"></div>
+  </div>
+
+  <div id="start-menu">
+    <div class="start-menu-header">
+      <img src="images/user-pic.png" alt="User">
+      <span>Mirko Vidal</span>
+    </div>
+    <div class="start-menu-main">
+      <div class="menu-col-left">
+        <a href="#" class="menu-item" onclick="openWindowFromMenu('internet')">
+          <img src="images/internet-icon.png"> Internet
+        </a>
+        <a href="#" class="menu-item" onclick="openWindowFromMenu('contact')">
+          <img src="images/contact-icon.png"> Email (Contacto)
+        </a>
+        <hr>
+        <a href="#" class="menu-item" onclick="openWindowFromMenu('snake-game')">
+          <img src="images/snake-icon.png"> Snake
+        </a>
+      </div>
+      <div class="menu-col-right">
+        <a href="#" class="menu-item" onclick="openWindowFromMenu('documents')">
+          <img src="images/docs-icon.png"> Mis Documentos
+        </a>
+        <a href="#" class="menu-item" onclick="openWindowFromMenu('projects')">
+          <img src="images/projects-icon.png"> Mis Proyectos
+        </a>
+        <a href="#" class="menu-item" onclick="openWindowFromMenu('about')">
+          <img src="images/about-icon.png"> Sobre Mí (Mi PC)
+        </a>
+        <hr>
+        <a href="#" class="menu-item" onclick="openWindowFromMenu('recycle-bin')">
+          <img src="images/recycle-bin-icon.png"> Papelera
+        </a>
+      </div>
+    </div>
+    <div class="start-menu-footer">
+      <span class="footer-button" onclick="logOff()">
+        Suspender
+      </span>
+      <span class="footer-button" onclick="turnOff()">
+        Apagar
+      </span>
+    </div>
+  </div>
+
+  <div class="desktop">
+    <div class="icon" onclick="openWindow('about')">
+      <img src="images/about-icon.png" alt="Sobre mí">
+      <p>Sobre mí</p>
+    </div>
+    <div class="icon" onclick="openWindow('projects')">
+      <img src="images/projects-icon.png" alt="Proyectos">
+      <p>Proyectos</p>
+    </div>
+    <div class="icon" onclick="openWindow('contact')">
+      <img src="images/contact-icon.png" alt="Contacto">
+      <p>Contacto</p>
+    </div>
+    <div class="icon" onclick="openWindow('snake-game')">
+      <img src="images/snake-icon.png" alt="Snake">
+      <p>Snake</p>
+    </div>
+    <div class="icon" onclick="openWindow('internet')">
+      <img src="images/internet-icon.png" alt="Internet">
+      <p>Internet</p>
+    </div>
+    <div class="icon" onclick="openWindow('documents')">
+      <img src="images/docs-icon.png" alt="Mis Documentos">
+      <p>Mis Documentos</p>
+    </div>
+    <div class="icon" onclick="openWindow('recycle-bin')">
+      <img src="images/recycle-bin-icon.png" alt="Papelera">
+      <p>Papelera de Reciclaje</p>
+    </div>
+  </div>
+
+  <div id="about" class="window">
+    <div class="window-header">
+      <span class="window-title">Sobre mí</span>
+      <div class="window-controls">
+        <button class="window-minimize" onclick="minimizeWindow('about')">_</button>
+        <button class="window-maximize" onclick="toggleMaximizeWindow('about')">[]</button>
+        <button class="window-close" onclick="closeWindow('about')">X</button>
+      </div>
+    </div>
+    <div class="window-content">
+      <p>Hola, soy Mirko Leonel Vidal, un estudiante en Técnico en Desarrollo Web en la Universidad Nacional de Entre Ríos.</p>
+      <p>Me entusiasma la infinidad de cosas que se pueden crear con código y la posibilidad de diseñar aplicaciones que resuelvan problemas reales.</p>
+      <div class="skills-section">
+        <h3>Mis Habilidades</h3>
+        <div class="skills-container">
+          <div class="skill-category"><h4>Lenguajes</h4><div class="skill-item"><img src="images/tech/python.png" alt="Python"><span>Python</span></div><div class="skill-item"><img src="images/tech/js.png" alt="JavaScript"><span>JavaScript</span></div></div>
+          <div class="skill-category"><h4>Web</h4><div class="skill-item"><img src="images/tech/html.png" alt="HTML5"><span>HTML5</span></div><div class="skill-item"><img src="images/tech/css.png" alt="CSS3"><span>CSS3</span></div><div class="skill-item"><img src="images/tech/node.png" alt="Node.js"><span>Node.js</span></div></div>
+          <div class="skill-category"><h4>Herramientas</h4><div class="skill-item"><img src="images/tech/git.png" alt="Git"><span>Git</span></div><div class="skill-item"><img src="images/tech/sqlite.png" alt="SQL"><span>SQL</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="projects" class="window">
+    <div class="window-header">
+      <span class="window-title">Mis Proyectos</span>
+      <div class="window-controls">
+        <button class="window-minimize" onclick="minimizeWindow('projects')">_</button>
+        <button class="window-maximize" onclick="toggleMaximizeWindow('projects')">[]</button>
+        <button class="window-close" onclick="closeWindow('projects')">X</button>
+      </div>
+    </div>
+    <div class="window-content project-showcase"><p>Estoy trabajando en mejorar mis proyectos y subirlos aquí. ¡Vuelve pronto!</p></div>
+  </div>
+  <div id="contact" class="window">
+    <div class="window-header">
+      <span class="window-title">Contacto</span>
+      <div class="window-controls">
+        <button class="window-minimize" onclick="minimizeWindow('contact')">_</button>
+        <button class="window-maximize" onclick="toggleMaximizeWindow('contact')">[]</button>
+        <button class="window-close" onclick="closeWindow('contact')">X</button>
+      </div>
+    </div>
+    <div class="window-content"><p>Puedes contactarme en: <a href="mailto:mirkovidal2023@gmail.com">mirkovidal2023@gmail.com</a></p><p>También puedes encontrarme en:</p><ul><li><a href="https://www.linkedin.com/in/mirko-vidal-0a6b88270/" target="_blank">LinkedIn</a></li><li><a href="https://github.com/MirkoVidal" target="_blank">GitHub</a></li></ul></div>
+  </div>
+  <div id="snake-game" class="window">
+    <div class="window-header">
+      <span class="window-title">Juego de la Serpiente</span>
+      <div class="window-controls">
+        <button class="window-minimize" onclick="minimizeWindow('snake-game')">_</button>
+        <button class="window-maximize" onclick="toggleMaximizeWindow('snake-game')">[]</button>
+        <button class="window-close" onclick="closeWindow('snake-game')">X</button>
+      </div>
+    </div>
+    <div class="window-content"><canvas id="gameCanvas" width="500" height="400"></canvas><p>Puntuación: <span id="score">0</span></p></div>
+  </div>
+  <div id="internet" class="window">
+    <div class="window-header">
+      <span class="window-title">Internet (LinkedIn)</span>
+      <div class="window-controls">
+        <button class="window-minimize" onclick="minimizeWindow('internet')">_</button>
+        <button class="window-maximize" onclick="toggleMaximizeWindow('internet')">[]</button>
+        <button class="window-close" onclick="closeWindow('internet')">X</button>
+      </div>
+    </div>
+    <div class="window-content window-content-iframe"><iframe src="https://www.linkedin.com/in/mirko-vidal-0a6b88270/" class="iframe-content" frameborder="0"></iframe></div>
+  </div>
+  <div id="documents" class="window">
+    <div class="window-header">
+      <span class="window-title">Mis Documentos</span>
+      <div class="window-controls">
+        <button class="window-minimize" onclick="minimizeWindow('documents')">_</button>
+        <button class="window-maximize" onclick="toggleMaximizeWindow('documents')">[]</button>
+        <button class="window-close" onclick="closeWindow('documents')">X</button>
+      </div>
+    </div>
+    <div class="window-content document-content"><a href="Curriculum.pdf" target="_blank" class="document-item"><img src="images/pdf-icon.png" alt="PDF Icon"><p>Curriculum.pdf</p></a></div>
+  </div>
+  <div id="recycle-bin" class="window">
+    <div class="window-header">
+      <span class="window-title">Papelera de Reciclaje</span>
+      <div class="window-controls">
+        <button class="window-minimize" onclick="minimizeWindow('recycle-bin')">_</button>
+        <button class="window-maximize" onclick="toggleMaximizeWindow('recycle-bin')">[]</button>
+        <button class="window-close" onclick="closeWindow('recycle-bin')">X</button>
+      </div>
+    </div>
+    <div class="window-content recycle-bin-content"><p>La papelera está vacía.</p></div>
+  </div>
+
+  <div id="context-menu">
+    <ul>
+      <li onclick="refreshDesktop()">Actualizar</li>
+      <hr>
+      <li class="dummy-option" onclick="closeContextMenu()">Organizar iconos por</li>
+      <li class="dummy-option" onclick="closeContextMenu()">Nuevo</li>
+      <hr>
+      <li onclick="openWindowFromMenu('about')">Propiedades</li>
+    </ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

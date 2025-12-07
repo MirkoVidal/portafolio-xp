@@ -1,0 +1,339 @@
+/* ===== ARREGLO GLOBAL ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: url('images/windows-xp-background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Press Start 2P', cursive;
+  user-select: none;
+  overflow: hidden;
+}
+
+/* =================================================== */
+/* ESTILOS DE ARRANQUE E ICONOS (¡RESPONSIVE GRID!)   */
+/* =================================================== */
+
+#boot-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+}
+
+#boot-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* === ESCRITORIO CON GRID === */
+.desktop {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(110px, auto)); /* Reducir altura mínima de fila */
+  grid-auto-flow: column;
+  gap: 10px;
+  align-content: start;
+  padding: 20px;
+  height: calc(100vh - 40px);
+  display: none;
+}
+
+/* === ICONOS (SIN POSICIÓN ABSOLUTA) === */
+.icon {
+  text-align: center;
+  cursor: pointer;
+  width: 90px;
+  height: 110px; /* Reducir altura del contenedor del icono */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 10px;
+}
+
+.icon img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px; /* Mantener un pequeño margen */
+}
+
+/* === ESTILOS DE TEXTO DE ICONO ACTUALIZADOS === */
+.icon p {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  line-height: 1.3;
+  /* margin-top: auto; (ELIMINADO) */
+  margin-bottom: 5px;
+}
+
+/* =================================================== */
+/* ESTILOS DE VENTANAS                               */
+/* =================================================== */
+
+.window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 95vw;
+  max-height: calc(100vh - 45px);
+  background: #f0f0f0;
+  border: 2px solid #000080;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+  display: none;
+  overflow: auto;
+  z-index: 5;
+  transition: all 0.2s ease-in-out;
+}
+
+/* TAMAÑOS ESPECÍFICOS POR VENTANA */
+#about { width: 600px; height: 570px; }
+#projects { width: 600px; height: 400px; }
+#contact { width: 500px; height: 350px; }
+#snake-game { width: 560px; height: 540px; }
+#internet { width: 800px; height: 600px; }
+#documents { width: 400px; height: 300px; }
+#recycle-bin { width: 400px; height: 300px; }
+.project-window { width: 700px; height: 550px; }
+
+
+.window-header {
+  background: #000080;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  cursor: grab;
+}
+.window-header:active { cursor: grabbing; }
+
+.window-controls {
+  display: flex;
+  gap: 5px;
+}
+.window-controls button {
+  border: 1px solid #fff;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  font-weight: bold;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.window-minimize {
+  background: #FFD700;
+  color: black;
+  font-size: 16px;
+  line-height: 16px;
+}
+.window-maximize {
+  background: #0078D7;
+  color: white;
+  font-size: 14px;
+}
+.window-close {
+  background: #E81123;
+  color: white;
+  font-size: 14px;
+}
+
+/* ESTADO MAXIMIZADO */
+.window[data-state="maximized"] {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: calc(100vh - 40px) !important;
+  transform: none !important;
+  max-width: 100% !important;
+  max-height: calc(100vh - 40px) !important;
+  border-radius: 0;
+  box-shadow: none;
+}
+.window[data-state="maximized"] .window-maximize::before { content: "[ ]"; font-size: 10px; }
+.window[data-state="maximized"] .window-maximize { font-size: 0; }
+
+
+.window-content {
+  padding: 20px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  color: black;
+  line-height: 1.6;
+}
+.window-content p, .window-content h3, .window-content ul {
+  margin-bottom: 15px;
+}
+.window-content a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #0000FF;
+  text-decoration: underline;
+}
+
+/* Barra de tareas */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to top, #1c5aa6, #2c89d8);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  display: none;
+}
+.start-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #3d8ee5, #185abd);
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 2px rgba(255, 255, 255, 0.3),
+              inset -2px -2px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  width: 50px;
+  height: 30px;
+}
+.start-button img { width: 30px; height: 30px; }
+.taskbar-windows {
+  flex-grow: 1;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.taskbar-icon {
+  background: #3d8ee5;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+.taskbar-clock {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 10px;
+}
+.window[style*="display: block"] {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+/* Juego Snake */
+canvas {
+  border: 2px solid #fff;
+  background-color: #000;
+  display: block;
+  margin: 0 auto;
+}
+.window-content { text-align: center; }
+#score { font-weight: bold; color: #00ff00; }
+
+/* FASE 1 (PROYECTOS) */
+.project-showcase { display: flex; flex-wrap: wrap; padding: 20px; gap: 25px; align-items: flex-start; justify-content: flex-start; text-align: left; }
+.project-icon { text-align: center; cursor: pointer; width: 100px; }
+.project-icon img { width: 50px; height: 50px; margin-bottom: 5px; }
+.project-icon p { font-family: 'Press Start 2P', cursive; font-size: 10px; color: black; text-shadow: none; word-wrap: break-word; }
+.project-window-content { text-align: left; display: flex; flex-direction: column; gap: 20px; }
+.project-window-content h3 { font-size: 16px; color: #000080; border-bottom: 2px solid #ccc; padding-bottom: 5px; margin-bottom: 10px; }
+.project-window-content h4 { font-size: 12px; margin-bottom: 10px; }
+.tech-stack-container { display: flex; gap: 15px; flex-wrap: wrap; }
+.tech-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; width: 60px; text-align: center; }
+.tech-item img { width: 32px; height: 32px; margin-bottom: 5px; }
+.gallery-container { display: flex; gap: 10px; flex-wrap: wrap; }
+.gallery-image { width: 150px; height: auto; border: 2px solid #000080; }
+.project-links a { text-decoration: none; font-family: 'Press Start 2P', cursive; font-size: 10px; padding: 10px 15px; color: white; margin-right: 10px; border: 2px solid black; box-shadow: 2px 2px 0px black; transition: all 0.1s ease; }
+.project-links a:active { box-shadow: none; transform: translate(2px, 2px); }
+.project-links a.github { background-color: #333; }
+.project-links a.demo { background-color: #000080; }
+
+/* FASE 2 (ESCRITORIO INTERACTIVO) */
+#about .window-content { text-align: left; }
+.skills-section { margin-top: 20px; border-top: 2px solid #ccc; padding-top: 15px; }
+.skills-section h3 { font-size: 14px; color: #000080; text-align: center; }
+.skills-container { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; margin-top: 15px; }
+.skill-category { text-align: center; }
+.skill-category h4 { font-size: 12px; text-decoration: underline; margin-bottom: 15px; }
+.skill-item { display: flex; flex-direction: column; align-items: center; font-size: 10px; width: 70px; margin-bottom: 10px; }
+.skill-item img { width: 32px; height: 32px; margin-bottom: 5px; }
+.window-content-iframe { padding: 0; height: calc(100% - 40px); overflow: hidden; }
+.iframe-content { width: 100%; height: 100%; border: none; }
+.document-content { display: flex; align-items: flex-start; justify-content: flex-start; padding: 20px; text-align: left; }
+.document-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: black; width: 100px; }
+.document-item img { width: 50px; height: auto; margin-bottom: 10px; }
+.document-item p { font-size: 10px; text-align: center; word-wrap: break-word; }
+.recycle-bin-content { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 14px; }
+
+/* FASE 3 (MENÚ DE INICIO) */
+#start-menu { display: none; position: fixed; bottom: 40px; left: 0; width: 400px; height: 450px; background: linear-gradient(to top, #1c5aa6, #2c89d8); border: 2px solid #000080; box-shadow: 3px -3px 5px rgba(0,0,0,0.3); z-index: 99; color: white; font-size: 12px; }
+.start-menu-header { background: linear-gradient(to bottom, #1c5aa6, #0a3d8d); padding: 10px; display: flex; align-items: center; gap: 10px; }
+.start-menu-header img { width: 40px; height: 40px; border: 2px solid white; }
+.start-menu-header span { font-size: 14px; font-weight: bold; }
+.start-menu-main { display: flex; height: 340px; }
+.menu-col-left { width: 50%; background: #fff; color: black; padding: 10px 0; overflow-y: auto; }
+.menu-col-right { width: 50%; background: #d6e8f6; color: black; padding: 10px 0; overflow-y: auto; }
+.menu-item { display: flex; align-items: center; padding: 8px 15px; gap: 10px; text-decoration: none; color: black; font-size: 11px; }
+.menu-item:hover { background: #3d8ee5; color: white; }
+.menu-item img { width: 24px; height: 24px; }
+.menu-col-left hr { border: 0; border-top: 1px solid #ccc; margin: 5px 10px; }
+.menu-col-right hr { border: 0; border-top: 1px solid #99bde0; margin: 5px 10px; }
+.start-menu-footer { position: absolute; bottom: 0; width: 100%; background: linear-gradient(to top, #1c5aa6, #0a3d8d); padding: 10px; display: flex; justify-content: flex-end; gap: 20px; text-align: right; }
+.footer-button { cursor: pointer; color: white; font-size: 11px; padding: 5px 8px; border: 1px solid transparent; }
+.footer-button:hover { background: #3d8ee5; border: 1px solid #fff; }
+
+/* FASE 3.5 (LOG OFF / TURN OFF) */
+#lock-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('images/windows-xp-background.jpg') no-repeat center center fixed; background-size: cover; z-index: 9999; align-items: center; justify-content: center; }
+.lock-screen-box { display: flex; flex-direction: column; align-items: center; padding: 30px; background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+.lock-screen-box img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; cursor: pointer; margin-bottom: 15px; }
+.lock-screen-user { font-size: 20px; color: white; text-shadow: 2px 2px 4px black; margin-bottom: 10px; }
+.lock-screen-hint { font-size: 12px; color: white; text-shadow: 1px 1px 2px black; }
+.shutdown-screen { display: flex; align-items: center; justify-content: center; height: 100vh; font-size: 20px; }
+
+/* FASE 4 (MENÚ CLIC DERECHO) */
+#context-menu { display: none; position: fixed; z-index: 1000; width: 200px; background: #f0f0f0; border: 2px solid #000080; box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2); font-size: 11px; color: black; }
+#context-menu ul { list-style: none; margin: 0; padding: 5px; }
+#context-menu li { padding: 6px 15px; cursor: pointer; }
+#context-menu li:hover { background: #3d8ee5; color: white; }
+#context-menu hr { border: 0; border-top: 1px solid #aaa; margin: 4px; }
+#context-menu li.dummy-option { color: #888; cursor: default; }
+#context-menu li.dummy-option:hover { background: #f0f0f0; color: #888; }
+
+/* CONTENIDO MAXIMIZADO */
+.window[data-state="maximized"] .window-content { padding: 30px; }
+.window[data-state="maximized"]#about .window-content p { max-width: 80ch; margin-left: auto; margin-right: auto; text-align: justify; }
+.window[data-state="maximized"]#about .skills-container { justify-content: space-evenly; margin-top: 40px; }
+.window[data-state="maximized"]#documents .document-content,
+.window[data-state="maximized"]#recycle-bin .recycle-bin-content { display: flex; align-items: center; justify-content: center; height: calc(100% - 40px); }
