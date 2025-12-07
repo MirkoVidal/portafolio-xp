@@ -540,3 +540,22 @@ async function postMessage() {
     alert("No se pudo conectar con el servidor.");
   }
 }
+
+// ===================================================
+// LÓGICA DE CONTACTO (MAILTO)
+// ===================================================
+function sendEmailToMirko() {
+  const subject = document.getElementById('email-subject').value;
+  const body = document.getElementById('email-body').value;
+  
+  if (!body) {
+    alert("Por favor escribe un mensaje antes de enviar.");
+    return;
+  }
+
+  // Crea el link de mailto dinámico
+  const mailtoLink = `mailto:mirkovidal2023@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  
+  // Abre el cliente de correo del usuario
+  window.open(mailtoLink, '_blank');
+}

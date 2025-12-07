@@ -145,16 +145,32 @@
     <div class="window-content project-showcase"><p>Estoy trabajando en mejorar mis proyectos y subirlos aquí. ¡Vuelve pronto!</p></div>
   </div>
 
-  <div id="contact" class="window">
+<div id="contact" class="window">
     <div class="window-header">
-      <span class="window-title">Contacto</span>
+      <span class="window-title">Nuevo Mensaje - Outlook Express</span>
       <div class="window-controls">
         <button class="window-minimize" onclick="minimizeWindow('contact')">_</button>
         <button class="window-maximize" onclick="toggleMaximizeWindow('contact')">[]</button>
         <button class="window-close" onclick="closeWindow('contact')">X</button>
       </div>
     </div>
-    <div class="window-content"><p>Puedes contactarme en: <a href="mailto:mirkovidal2023@gmail.com">mirkovidal2023@gmail.com</a></p><p>También puedes encontrarme en:</p><ul><li><a href="https://www.linkedin.com/in/mirko-vidal-0a6b88270/" target="_blank">LinkedIn</a></li><li><a href="https://github.com/MirkoVidal" target="_blank">GitHub</a></li></ul></div>
+    <div class="window-content outlook-content">
+      <div class="outlook-header-area">
+        <div class="outlook-row">
+          <label>Para:</label>
+          <div class="input-fake">mirkovidal2023@gmail.com</div>
+        </div>
+        <div class="outlook-row">
+          <label>Asunto:</label>
+          <input type="text" id="email-subject" placeholder="Propuesta Laboral / Consulta">
+        </div>
+      </div>
+      <div class="outlook-toolbar">
+        <button onclick="sendEmailToMirko()">✉️ Enviar</button>
+        <button onclick="closeWindow('contact')">🗑️ Cancelar</button>
+      </div>
+      <textarea id="email-body" class="outlook-body" placeholder="Escribe tu mensaje aquí..."></textarea>
+    </div>
   </div>
 
   <div id="snake-game" class="window">
@@ -169,16 +185,54 @@
     <div class="window-content"><canvas id="gameCanvas" width="500" height="400"></canvas><p>Puntuación: <span id="score">0</span></p></div>
   </div>
 
-  <div id="internet" class="window">
+<div id="internet" class="window">
     <div class="window-header">
-      <span class="window-title">Internet (LinkedIn)</span>
+      <span class="window-title">Internet Explorer - Mirko Web</span>
       <div class="window-controls">
         <button class="window-minimize" onclick="minimizeWindow('internet')">_</button>
         <button class="window-maximize" onclick="toggleMaximizeWindow('internet')">[]</button>
         <button class="window-close" onclick="closeWindow('internet')">X</button>
       </div>
     </div>
-    <div class="window-content window-content-iframe"><iframe src="https://www.linkedin.com/in/mirko-vidal-0a6b88270/" class="iframe-content" frameborder="0"></iframe></div>
+    <div class="window-content ie-content">
+      <div class="ie-toolbar">
+        <span>Dirección:</span>
+        <input type="text" value="https://www.mirko-vidal.com/links" readonly>
+        <button>Ir</button>
+      </div>
+      <div class="ie-page">
+        <div class="ie-header">
+          <h1>Bienvenido a la Red</h1>
+          <p>Seleccione un destino para continuar:</p>
+        </div>
+        <div class="ie-links">
+          <a href="https://www.linkedin.com/in/mirko-vidal-0a6b88270/" target="_blank" class="ie-link-item">
+            <img src="images/internet-icon.png" alt="LinkedIn">
+            <div class="link-text">
+              <strong>Perfil Profesional</strong>
+              <span>Visitar LinkedIn</span>
+            </div>
+          </a>
+          <a href="https://github.com/MirkoVidal" target="_blank" class="ie-link-item">
+            <img src="images/projects-icon.png" alt="GitHub">
+            <div class="link-text">
+              <strong>Repositorios de Código</strong>
+              <span>Visitar GitHub</span>
+            </div>
+          </a>
+          <a href="Curriculum.pdf" target="_blank" class="ie-link-item">
+            <img src="images/pdf-icon.png" alt="CV">
+            <div class="link-text">
+              <strong>Currículum Vitae</strong>
+              <span>Ver Documento PDF</span>
+            </div>
+          </a>
+        </div>
+        <div class="ie-footer">
+          <p>Zona segura. Libre de virus.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="documents" class="window">
