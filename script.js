@@ -1,6 +1,3 @@
-// ===================================================
-// BASE DE DATOS DE PROYECTOS
-// ===================================================
 const projectsData = [
   {
     id: 'backend-auth',
@@ -53,9 +50,6 @@ const projectsData = [
   }
 ];
 
-// ===================================================
-// LÓGICA DE AUDIO DE INICIO
-// ===================================================
 const startupSound = new Audio('xp_startup.wav');
 startupSound.volume = 0.5;
 
@@ -63,9 +57,6 @@ function playStartupSound() {
   startupSound.play().catch(error => { /* console.error(error) */ });
 }
 
-// ===================================================
-// LÓGICA DE ARRANQUE
-// ===================================================
 const bootScreen = document.getElementById('boot-screen');
 const lockScreen = document.getElementById('lock-screen');
 const desktop = document.querySelector('.desktop');
@@ -83,10 +74,6 @@ function runBootSequence() {
 }
 document.addEventListener('DOMContentLoaded', runBootSequence);
 
-
-// ===================================================
-// FUNCIONES DE VENTANAS
-// ===================================================
 function openWindow(windowId) {
   const windowElement = document.getElementById(windowId);
   windowElement.style.display = 'block';
@@ -139,7 +126,6 @@ function toggleMaximizeWindow(windowId) {
   const currentState = windowElement.dataset.state;
 
   if (currentState === 'maximized') {
-    // RESTAURAR
     windowElement.dataset.state = 'normal';
     windowElement.style.top = windowElement.dataset.originalTop || '50%';
     windowElement.style.left = windowElement.dataset.originalLeft || '50%';
@@ -152,7 +138,6 @@ function toggleMaximizeWindow(windowId) {
          windowElement.style.transform = 'none';
     }
   } else {
-    // MAXIMIZAR
     if (currentState !== 'maximized') {
         windowElement.dataset.originalTop = windowElement.style.top || '50%';
         windowElement.dataset.originalLeft = windowElement.style.left || '50%';
@@ -240,14 +225,8 @@ function addToTaskbar(windowId) {
   taskbarWindows.appendChild(taskbarIcon);
 }
 
-// ===================================================
-// INICIALIZACIÓN
-// ===================================================
 ['about', 'projects', 'contact', 'snake-game', 'internet', 'documents', 'recycle-bin', 'guestbook'].forEach(makeWindowDraggable);
 
-// ===================================================
-// Reloj
-// ===================================================
 function updateClock() {
   const clockElement = document.getElementById('clock');
   const now = new Date();
@@ -259,9 +238,6 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// ===================================================
-// Juego Snake
-// ===================================================
 let game;
 function startSnakeGame() {
   const canvas = document.getElementById('gameCanvas');
@@ -323,9 +299,6 @@ function startSnakeGame() {
   game = setInterval(draw, 100);
 }
 
-// ===================================================
-// FUNCIONES DE PROYECTOS
-// ===================================================
 function openProject(projectId) {
   const projectData = projectsData.find(p => p.id === projectId);
   if (!projectData) { console.error(`No data for project: ${projectId}`); return; }
@@ -366,9 +339,6 @@ function createProjectWindow(projectData) {
   openWindow(windowId);
 }
 
-// ===================================================
-// LÓGICA DEL MENÚ DE INICIO
-// ===================================================
 const startButton = document.querySelector('.start-button');
 const startMenu = document.getElementById('start-menu');
 const contextMenu = document.getElementById('context-menu');
@@ -398,9 +368,6 @@ function openWindowFromMenu(windowId) {
   closeContextMenu();
 }
 
-// ===================================================
-// LÓGICA DE LOG OFF / TURN OFF
-// ===================================================
 function logOff() {
   startMenu.style.display = 'none';
   desktop.style.display = 'none';
@@ -429,9 +396,6 @@ function turnOff() {
   setTimeout(() => { window.close(); }, 2000);
 }
 
-// ===================================================
-// LÓGICA DEL MENÚ DE CLIC DERECHO
-// ===================================================
 desktop.addEventListener('contextmenu', (event) => {
   event.preventDefault();
   startMenu.style.display = 'none';
@@ -449,9 +413,6 @@ function refreshDesktop() {
   closeContextMenu();
 }
 
-// ===================================================
-// RENDERIZADO DE LA CARPETA "MIS PROYECTOS"
-// ===================================================
 function renderProjectIcons() {
   const container = document.querySelector('#projects .project-showcase');
   if (!container) return;
@@ -473,9 +434,6 @@ function renderProjectIcons() {
 
 document.addEventListener('DOMContentLoaded', renderProjectIcons);
 
-// ===================================================
-// LÓGICA DEL LIBRO DE VISITAS (CONECTADO A RENDER)
-// ===================================================
 const API_URL = "https://xp-backend-auth.onrender.com/api/guestbook";
 
 async function loadMessages() {
@@ -541,9 +499,6 @@ async function postMessage() {
   }
 }
 
-// ===================================================
-// LÓGICA DE CONTACTO (MAILTO)
-// ===================================================
 function sendEmailToMirko() {
   const subject = document.getElementById('email-subject').value;
   const body = document.getElementById('email-body').value;
@@ -553,9 +508,7 @@ function sendEmailToMirko() {
     return;
   }
 
-  // Crea el link de mailto dinámico
   const mailtoLink = `mailto:mirkovidal2023@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   
-  // Abre el cliente de correo del usuario
   window.open(mailtoLink, '_blank');
 }
