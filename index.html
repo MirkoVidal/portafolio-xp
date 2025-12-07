@@ -27,7 +27,7 @@
       <span></span>
     </div>
     <div class="taskbar-windows">
-      </div>
+    </div>
     <div class="taskbar-clock" id="clock"></div>
   </div>
 
@@ -104,6 +104,10 @@
       <img src="images/recycle-bin-icon.png" alt="Papelera">
       <p>Papelera de Reciclaje</p>
     </div>
+    <div class="icon" onclick="openWindow('guestbook')">
+      <img src="images/docs-icon.png" alt="Guestbook">
+      <p>Libro de Visitas</p>
+    </div>
   </div>
 
   <div id="about" class="window">
@@ -128,6 +132,7 @@
       </div>
     </div>
   </div>
+
   <div id="projects" class="window">
     <div class="window-header">
       <span class="window-title">Mis Proyectos</span>
@@ -139,6 +144,7 @@
     </div>
     <div class="window-content project-showcase"><p>Estoy trabajando en mejorar mis proyectos y subirlos aquí. ¡Vuelve pronto!</p></div>
   </div>
+
   <div id="contact" class="window">
     <div class="window-header">
       <span class="window-title">Contacto</span>
@@ -150,6 +156,7 @@
     </div>
     <div class="window-content"><p>Puedes contactarme en: <a href="mailto:mirkovidal2023@gmail.com">mirkovidal2023@gmail.com</a></p><p>También puedes encontrarme en:</p><ul><li><a href="https://www.linkedin.com/in/mirko-vidal-0a6b88270/" target="_blank">LinkedIn</a></li><li><a href="https://github.com/MirkoVidal" target="_blank">GitHub</a></li></ul></div>
   </div>
+
   <div id="snake-game" class="window">
     <div class="window-header">
       <span class="window-title">Juego de la Serpiente</span>
@@ -161,6 +168,7 @@
     </div>
     <div class="window-content"><canvas id="gameCanvas" width="500" height="400"></canvas><p>Puntuación: <span id="score">0</span></p></div>
   </div>
+
   <div id="internet" class="window">
     <div class="window-header">
       <span class="window-title">Internet (LinkedIn)</span>
@@ -172,6 +180,7 @@
     </div>
     <div class="window-content window-content-iframe"><iframe src="https://www.linkedin.com/in/mirko-vidal-0a6b88270/" class="iframe-content" frameborder="0"></iframe></div>
   </div>
+
   <div id="documents" class="window">
     <div class="window-header">
       <span class="window-title">Mis Documentos</span>
@@ -183,6 +192,7 @@
     </div>
     <div class="window-content document-content"><a href="Curriculum.pdf" target="_blank" class="document-item"><img src="images/pdf-icon.png" alt="PDF Icon"><p>Curriculum.pdf</p></a></div>
   </div>
+
   <div id="recycle-bin" class="window">
     <div class="window-header">
       <span class="window-title">Papelera de Reciclaje</span>
@@ -193,6 +203,28 @@
       </div>
     </div>
     <div class="window-content recycle-bin-content"><p>La papelera está vacía.</p></div>
+  </div>
+
+  <div id="guestbook" class="window">
+    <div class="window-header">
+      <span class="window-title">Libro de Visitas - v1.0</span>
+      <div class="window-controls">
+        <button class="window-minimize" onclick="minimizeWindow('guestbook')">_</button>
+        <button class="window-maximize" onclick="toggleMaximizeWindow('guestbook')">[]</button>
+        <button class="window-close" onclick="closeWindow('guestbook')">X</button>
+      </div>
+    </div>
+    <div class="window-content guestbook-content">
+      <div class="guestbook-form">
+        <p>¡Deja tu firma en mi muro!</p>
+        <input type="text" id="gb-name" placeholder="Tu Nombre" maxlength="20">
+        <textarea id="gb-msg" placeholder="Escribe un mensaje..." maxlength="100"></textarea>
+        <button onclick="postMessage()">Enviar Firma</button>
+      </div>
+      <div class="guestbook-list" id="gb-list">
+        <p>Cargando mensajes del servidor...</p>
+      </div>
+    </div>
   </div>
 
   <div id="context-menu">

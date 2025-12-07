@@ -3,32 +3,32 @@
 // ===================================================
 const projectsData = [
   {
-    id: 'api-gestion',
-    title: 'API Gestión de Usuarios',
-    summary: 'Sistema backend RESTful desarrollado para administrar usuarios y autenticación.',
-    problem: 'Las aplicaciones web modernas necesitan sistemas seguros y escalables para manejar registros de usuarios sin duplicar código en el frontend.',
-    challenges: 'Implementar JWT para seguridad y manejar conexiones asíncronas a la base de datos SQL evitando bloqueos.',
+    id: 'backend-auth',
+    title: 'XP Auth System',
+    summary: 'Backend RESTful desarrollado en Node.js para gestionar la seguridad y datos del portafolio.',
+    problem: 'Necesidad de desacoplar la lógica de negocio de la interfaz visual, permitiendo escalabilidad y manejo seguro de sesiones.',
+    challenges: 'Implementar rutas de autenticación y sistema CRUD para el libro de visitas conectado a base de datos en la nube.',
     techStack: [
       { name: 'Node.js', icon: 'images/tech/node.png' },
-      { name: 'SQL', icon: 'images/tech/sqlite.png' },
-      { name: 'JS', icon: 'images/tech/js.png' }
+      { name: 'JS', icon: 'images/tech/js.png' },
+      { name: 'SQL', icon: 'images/tech/sqlite.png' }
     ],
-    gallery: [], // Agrega aquí rutas de capturas si tienes, ej: 'images/projects/api1.png'
-    githubUrl: 'https://github.com/MirkoVidal',
+    gallery: [],
+    githubUrl: 'https://github.com/MirkoVidal/xp-backend-auth',
     demoUrl: ''
   },
   {
-    id: 'automatizacion-py',
-    title: 'Script de Automatización',
-    summary: 'Herramienta en Python para procesar archivos y organizar datos automáticamente.',
-    problem: 'El procesamiento manual de grandes volúmenes de archivos consume mucho tiempo y es propenso a errores humanos.',
-    challenges: 'Manejar diferentes formatos de archivo y excepciones del sistema operativo al mover ficheros.',
+    id: 'smart-bot',
+    title: 'Smart File Bot',
+    summary: 'Script de automatización en Python que actúa como bot de mantenimiento inteligente para sistemas de archivos.',
+    problem: 'La gestión manual de archivos descargados genera desorden y pérdida de tiempo productivo en entornos de diseño y desarrollo.',
+    challenges: 'Crear un algoritmo eficiente que clasifique archivos por extensión y genere logs de auditoría para prevenir pérdida de datos.',
     techStack: [
       { name: 'Python', icon: 'images/tech/python.png' },
       { name: 'Git', icon: 'images/tech/git.png' }
     ],
     gallery: [],
-    githubUrl: 'https://github.com/MirkoVidal',
+    githubUrl: 'https://github.com/MirkoVidal/smart-file-organizer',
     demoUrl: ''
   },
   {
@@ -42,8 +42,13 @@ const projectsData = [
       { name: 'CSS3', icon: 'images/tech/css.png' },
       { name: 'JS', icon: 'images/tech/js.png' }
     ],
-    gallery: [],
-    githubUrl: 'https://github.com/MirkoVidal',
+    gallery: [
+        'images/projects/portfolio/boot.png',
+        'images/projects/portfolio/snake.png',
+        'images/projects/portfolio/code.png',
+        'images/projects/portfolio/desktop.png'
+    ],
+    githubUrl: 'https://github.com/MirkoVidal/portafolio-xp',
     demoUrl: '#'
   }
 ];
@@ -70,7 +75,7 @@ function runBootSequence() {
   lockScreen.style.display = 'none';
   desktop.style.display = 'none';
   taskbar.style.display = 'none';
-  const bootTime = 5000; // 5 segundos
+  const bootTime = 5000;
   setTimeout(() => {
     bootScreen.style.display = 'none';
     lockScreen.style.display = 'flex';
@@ -80,23 +85,24 @@ document.addEventListener('DOMContentLoaded', runBootSequence);
 
 
 // ===================================================
-// FUNCIONES DE VENTANAS (¡ACTUALIZADAS!)
+// FUNCIONES DE VENTANAS
 // ===================================================
-// === openWindow MODIFICADA: Abrir Maximizada ===
 function openWindow(windowId) {
   const windowElement = document.getElementById(windowId);
-  windowElement.style.display = 'block'; // Mostrar primero
+  windowElement.style.display = 'block';
   windowElement.style.zIndex = 10;
   addToTaskbar(windowId);
 
-  // Maximizar por defecto si no está ya maximizada
   if (windowElement.dataset.state !== 'maximized') {
-      // Usar setTimeout para asegurar que la ventana sea visible antes de maximizar
       setTimeout(() => toggleMaximizeWindow(windowId), 0);
   }
 
   if (windowId === 'snake-game') {
     startSnakeGame();
+  }
+
+  if (windowId === 'guestbook') {
+    loadMessages();
   }
 }
 
@@ -106,9 +112,7 @@ function closeWindow(windowId) {
     windowElement.remove();
   } else {
     windowElement.style.display = 'none';
-    // Resetear estado al cerrar para que abra maximizada la próxima vez
     delete windowElement.dataset.state;
-    // Limpiar estilos inline para que tome los del CSS al reabrir
     windowElement.style.top = '';
     windowElement.style.left = '';
     windowElement.style.width = '';
@@ -130,7 +134,6 @@ function minimizeWindow(windowId) {
   windowElement.style.display = 'none';
 }
 
-// === toggleMaximizeWindow MODIFICADA: Guardar estado original correctamente ===
 function toggleMaximizeWindow(windowId) {
   const windowElement = document.getElementById(windowId);
   const currentState = windowElement.dataset.state;
@@ -142,7 +145,7 @@ function toggleMaximizeWindow(windowId) {
     windowElement.style.left = windowElement.dataset.originalLeft || '50%';
     windowElement.style.width = windowElement.dataset.originalWidth || '';
     windowElement.style.height = windowElement.dataset.originalHeight || '';
-    // Reaplicar transform solo si top/left son 50%
+    
     if (windowElement.style.top === '50%' && windowElement.style.left === '50%') {
         windowElement.style.transform = 'translate(-50%, -50%)';
     } else {
@@ -150,16 +153,14 @@ function toggleMaximizeWindow(windowId) {
     }
   } else {
     // MAXIMIZAR
-    // Solo guardar si no estamos ya maximizados (evita sobrescribir al abrir)
     if (currentState !== 'maximized') {
-        windowElement.dataset.originalTop = windowElement.style.top || '50%'; // Guardar 50% si no hay valor inline
-        windowElement.dataset.originalLeft = windowElement.style.left || '50%'; // Guardar 50% si no hay valor inline
+        windowElement.dataset.originalTop = windowElement.style.top || '50%';
+        windowElement.dataset.originalLeft = windowElement.style.left || '50%';
         windowElement.dataset.originalWidth = windowElement.style.width || windowElement.offsetWidth + 'px';
         windowElement.dataset.originalHeight = windowElement.style.height || windowElement.offsetHeight + 'px';
     }
     windowElement.dataset.state = 'maximized';
-    windowElement.style.transform = 'none'; // Asegurar que no haya transform
-    // CSS se encarga del tamaño/posición maximizado
+    windowElement.style.transform = 'none';
   }
 }
 
@@ -210,17 +211,12 @@ function addToTaskbar(windowId) {
   if (document.querySelector(`.taskbar-icon[data-window-id="${windowId}"]`)) {
     const windowElement = document.getElementById(windowId);
     if(windowElement) {
-        // Si ya está en la barra (minimizada o detrás), traer al frente y mostrar
         windowElement.style.display = 'block';
         windowElement.style.zIndex = 10;
-        // Si estaba minimizada y la abrimos desde la taskbar, restaurarla (opcional)
-        // if (windowElement.dataset.state !== 'maximized') {
-        //     // Podríamos decidir restaurarla a tamaño normal aquí
-        // }
     }
     return;
   }
-  // --- Código para crear el icono (sin cambios) ---
+  
   const taskbarWindows = document.querySelector('.taskbar-windows');
   const taskbarIcon = document.createElement('div');
   taskbarIcon.className = 'taskbar-icon';
@@ -228,12 +224,13 @@ function addToTaskbar(windowId) {
   let title = project ? project.title : windowId.replace('project-', '');
   if (windowId === 'recycle-bin') title = 'Papelera';
   if (windowId === 'documents') title = 'Mis Documentos';
+  if (windowId === 'guestbook') title = 'Libro de Visitas';
+  
   taskbarIcon.textContent = title;
   taskbarIcon.setAttribute('data-window-id', windowId);
   taskbarIcon.onclick = () => {
     const windowElement = document.getElementById(windowId);
     if (windowElement) {
-        // Si hacemos clic en la taskbar, siempre mostrar y traer al frente
         windowElement.style.display = 'block';
         windowElement.style.zIndex = 10;
     } else {
@@ -244,17 +241,12 @@ function addToTaskbar(windowId) {
 }
 
 // ===================================================
-// LÓGICA DE ICONOS DE ESCRITORIO (SIN DRAG)
+// INICIALIZACIÓN
 // ===================================================
-// Ya no necesitamos makeIconDraggable, saveIconPosition, loadIconPositions, repositionIconsOnResize
+['about', 'projects', 'contact', 'snake-game', 'internet', 'documents', 'recycle-bin', 'guestbook'].forEach(makeWindowDraggable);
 
 // ===================================================
-// INICIALIZACIÓN (Solo ventanas arrastrables)
-// ===================================================
-['about', 'projects', 'contact', 'snake-game', 'internet', 'documents', 'recycle-bin'].forEach(makeWindowDraggable);
-
-// ===================================================
-// Reloj (Existente)
+// Reloj
 // ===================================================
 function updateClock() {
   const clockElement = document.getElementById('clock');
@@ -268,7 +260,7 @@ setInterval(updateClock, 1000);
 updateClock();
 
 // ===================================================
-// Juego Snake (Existente)
+// Juego Snake
 // ===================================================
 let game;
 function startSnakeGame() {
@@ -332,7 +324,7 @@ function startSnakeGame() {
 }
 
 // ===================================================
-// FUNCIONES DE PROYECTOS (¡ACTUALIZADAS!)
+// FUNCIONES DE PROYECTOS
 // ===================================================
 function openProject(projectId) {
   const projectData = projectsData.find(p => p.id === projectId);
@@ -342,7 +334,7 @@ function openProject(projectId) {
   if (existingWindow) { existingWindow.style.display = 'block'; existingWindow.style.zIndex = 10; return; }
   createProjectWindow(projectData);
 }
-// === createProjectWindow MODIFICADA: Abrir Maximizada ===
+
 function createProjectWindow(projectData) {
   const windowId = `project-${projectData.id}`;
   const newWindow = document.createElement('div');
@@ -371,12 +363,11 @@ function createProjectWindow(projectData) {
     </div>`;
   document.body.appendChild(newWindow);
   makeWindowDraggable(windowId);
-  // Mostrar y luego maximizar
-  openWindow(windowId); // openWindow se encargará de maximizar
+  openWindow(windowId);
 }
 
 // ===================================================
-// LÓGICA DEL MENÚ DE INICIO (FASE 3)
+// LÓGICA DEL MENÚ DE INICIO
 // ===================================================
 const startButton = document.querySelector('.start-button');
 const startMenu = document.getElementById('start-menu');
@@ -408,7 +399,7 @@ function openWindowFromMenu(windowId) {
 }
 
 // ===================================================
-// LÓGICA DE LOG OFF / TURN OFF (FASE 3.5)
+// LÓGICA DE LOG OFF / TURN OFF
 // ===================================================
 function logOff() {
   startMenu.style.display = 'none';
@@ -423,7 +414,6 @@ function logIn() {
   lockScreen.style.display = 'none';
   desktop.style.display = 'grid';
   taskbar.style.display = 'flex';
-  // Ya no necesitamos loadIconPositions aquí
   startupSound.currentTime = 0;
   startupSound.play();
 }
@@ -440,7 +430,7 @@ function turnOff() {
 }
 
 // ===================================================
-// LÓGICA DEL MENÚ DE CLIC DERECHO (FASE 4)
+// LÓGICA DEL MENÚ DE CLIC DERECHO
 // ===================================================
 desktop.addEventListener('contextmenu', (event) => {
   event.preventDefault();
@@ -455,7 +445,6 @@ function closeContextMenu() {
 }
 
 function refreshDesktop() {
-  // Con CSS Grid, "Actualizar" no necesita hacer nada visualmente
   console.log("Actualizando...");
   closeContextMenu();
 }
@@ -467,7 +456,6 @@ function renderProjectIcons() {
   const container = document.querySelector('#projects .project-showcase');
   if (!container) return;
   
-  // Limpiamos el mensaje de "Estoy trabajando..."
   container.innerHTML = ''; 
 
   projectsData.forEach(p => {
@@ -475,7 +463,6 @@ function renderProjectIcons() {
     iconDiv.className = 'project-icon';
     iconDiv.onclick = () => openProject(p.id);
     
-    // Usamos el icono genérico de carpeta o el de proyectos
     iconDiv.innerHTML = `
         <img src="images/projects-icon.png" alt="${p.title}">
         <p>${p.title}</p>
@@ -484,5 +471,72 @@ function renderProjectIcons() {
   });
 }
 
-// Ejecutar esto cuando cargue la página
 document.addEventListener('DOMContentLoaded', renderProjectIcons);
+
+// ===================================================
+// LÓGICA DEL LIBRO DE VISITAS (CONECTADO A RENDER)
+// ===================================================
+const API_URL = "https://xp-backend-auth.onrender.com/api/guestbook";
+
+async function loadMessages() {
+  const listElement = document.getElementById('gb-list');
+  listElement.innerHTML = '<p>Conectando con el servidor...</p>';
+
+  try {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+
+    listElement.innerHTML = '';
+
+    if (data.length === 0) {
+      listElement.innerHTML = '<p>Aún no hay firmas. ¡Sé el primero!</p>';
+      return;
+    }
+
+    data.forEach(msg => {
+      const date = new Date(msg.created_at).toLocaleDateString();
+      const entry = document.createElement('div');
+      entry.className = 'gb-entry';
+      entry.innerHTML = `
+        <strong>${msg.name}</strong> <span>${date}</span>
+        <p>${msg.message}</p>
+      `;
+      listElement.appendChild(entry);
+    });
+
+  } catch (error) {
+    console.error(error);
+    listElement.innerHTML = '<p style="color:red">Error al conectar con el servidor.</p>';
+  }
+}
+
+async function postMessage() {
+  const nameInput = document.getElementById('gb-name');
+  const msgInput = document.getElementById('gb-msg');
+  const name = nameInput.value.trim();
+  const message = msgInput.value.trim();
+
+  if (!name || !message) {
+    alert("Por favor escribe tu nombre y un mensaje.");
+    return;
+  }
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, message })
+    });
+
+    if (response.ok) {
+      nameInput.value = "";
+      msgInput.value = "";
+      loadMessages(); 
+    } else {
+      alert("Error al enviar mensaje.");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("No se pudo conectar con el servidor.");
+  }
+}
