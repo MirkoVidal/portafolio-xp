@@ -1,3 +1,15 @@
+// ===================================================
+// VARIABLE GLOBAL Y CARGA DE FONDO GUARDADO (NUEVO)
+// ===================================================
+// 1. Intentamos leer la memoria. Si no hay nada, usamos el original.
+let selectedBg = localStorage.getItem('xp_wallpaper') || 'images/windows-xp-background.jpg';
+
+// 2. Aplicamos el fondo INMEDIATAMENTE para que no parpadee al dar F5
+document.body.style.backgroundImage = `url('${selectedBg}')`;
+
+// ===================================================
+// BASE DE DATOS DE PROYECTOS
+// ===================================================
 const projectsData = [
   {
     id: 'backend-auth',
@@ -50,6 +62,9 @@ const projectsData = [
   }
 ];
 
+// ===================================================
+// LÓGICA DE AUDIO DE INICIO
+// ===================================================
 const startupSound = new Audio('xp_startup.wav');
 startupSound.volume = 0.5;
 
@@ -57,6 +72,9 @@ function playStartupSound() {
   startupSound.play().catch(error => { /* console.error(error) */ });
 }
 
+// ===================================================
+// LÓGICA DE ARRANQUE
+// ===================================================
 const bootScreen = document.getElementById('boot-screen');
 const lockScreen = document.getElementById('lock-screen');
 const desktop = document.querySelector('.desktop');
@@ -66,6 +84,10 @@ function runBootSequence() {
   lockScreen.style.display = 'none';
   desktop.style.display = 'none';
   taskbar.style.display = 'none';
+  
+  // Aseguramos que la pantalla de bloqueo también tenga el fondo guardado
+  lockScreen.style.backgroundImage = `url('${selectedBg}')`;
+
   const bootTime = 5000;
   setTimeout(() => {
     bootScreen.style.display = 'none';
@@ -74,8 +96,14 @@ function runBootSequence() {
 }
 document.addEventListener('DOMContentLoaded', runBootSequence);
 
+
+// ===================================================
+// FUNCIONES DE VENTANAS
+// ===================================================
 function openWindow(windowId) {
   const windowElement = document.getElementById(windowId);
+  if (!windowElement) return;
+
   windowElement.style.display = 'block';
   windowElement.style.zIndex = 10;
   addToTaskbar(windowId);
@@ -84,12 +112,27 @@ function openWindow(windowId) {
       setTimeout(() => toggleMaximizeWindow(windowId), 0);
   }
 
-  if (windowId === 'snake-game') {
-    startSnakeGame();
+  if (windowId === 'snake-game') { startSnakeGame(); }
+  if (windowId === 'guestbook') { loadMessages(); }
+  
+  if (windowId === 'secret-folder') {
+      const terminal = document.getElementById('terminal-text');
+      terminal.innerHTML = '';
+      lineIndex = 0;
+      typingIndex = 0;
+      isTyping = true;
+      typeWriter();
   }
 
-  if (windowId === 'guestbook') {
-    loadMessages();
+  if (windowId === 'msn-messenger') {
+    const history = document.getElementById('msn-history');
+    if(history.children.length === 0) {
+        addMsnMessage("MirkoBot", "¡Hola! Soy tu asistente virtual. Elige una pregunta abajo para comenzar.", true);
+    }
+  }
+
+  if (windowId === 'control-panel') {
+      selectWallpaper(selectedBg);
   }
 }
 
@@ -131,7 +174,6 @@ function toggleMaximizeWindow(windowId) {
     windowElement.style.left = windowElement.dataset.originalLeft || '50%';
     windowElement.style.width = windowElement.dataset.originalWidth || '';
     windowElement.style.height = windowElement.dataset.originalHeight || '';
-    
     if (windowElement.style.top === '50%' && windowElement.style.left === '50%') {
         windowElement.style.transform = 'translate(-50%, -50%)';
     } else {
@@ -149,9 +191,10 @@ function toggleMaximizeWindow(windowId) {
   }
 }
 
-
 function makeWindowDraggable(windowId) {
   const windowElement = document.getElementById(windowId);
+  if (!windowElement) return;
+
   const header = windowElement.querySelector('.window-header');
   let isDragging = false;
   let offsetX, offsetY;
@@ -172,12 +215,10 @@ function makeWindowDraggable(windowId) {
     if (isDragging) {
       let newX = e.clientX - offsetX;
       let newY = e.clientY - offsetY;
-
       const maxTop = window.innerHeight - 40 - 30;
       if (newY < 0) newY = 0;
       if (newY > maxTop) newY = maxTop;
       if (newX < 0) newX = 0;
-
       windowElement.style.left = `${newX}px`;
       windowElement.style.top = `${newY}px`;
     }
@@ -210,6 +251,12 @@ function addToTaskbar(windowId) {
   if (windowId === 'recycle-bin') title = 'Papelera';
   if (windowId === 'documents') title = 'Mis Documentos';
   if (windowId === 'guestbook') title = 'Libro de Visitas';
+  if (windowId === 'secret-folder') title = 'SYSTEM_ROOT';
+  if (windowId === 'internet') title = 'Internet Explorer';
+  if (windowId === 'contact') title = 'Outlook Express';
+  if (windowId === 'msn-messenger') title = 'MSN Messenger';
+  if (windowId === 'control-panel') title = 'Propiedades de Pantalla';
+  if (windowId === 'notepad') title = 'Bloc de notas';
   
   taskbarIcon.textContent = title;
   taskbarIcon.setAttribute('data-window-id', windowId);
@@ -225,8 +272,14 @@ function addToTaskbar(windowId) {
   taskbarWindows.appendChild(taskbarIcon);
 }
 
-['about', 'projects', 'contact', 'snake-game', 'internet', 'documents', 'recycle-bin', 'guestbook'].forEach(makeWindowDraggable);
+// ===================================================
+// INICIALIZACIÓN
+// ===================================================
+['about', 'projects', 'contact', 'snake-game', 'internet', 'documents', 'recycle-bin', 'guestbook', 'secret-folder', 'msn-messenger', 'notepad', 'control-panel'].forEach(makeWindowDraggable);
 
+// ===================================================
+// Reloj
+// ===================================================
 function updateClock() {
   const clockElement = document.getElementById('clock');
   const now = new Date();
@@ -238,6 +291,9 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+// ===================================================
+// Juego Snake
+// ===================================================
 let game;
 function startSnakeGame() {
   const canvas = document.getElementById('gameCanvas');
@@ -299,6 +355,9 @@ function startSnakeGame() {
   game = setInterval(draw, 100);
 }
 
+// ===================================================
+// FUNCIONES DE PROYECTOS
+// ===================================================
 function openProject(projectId) {
   const projectData = projectsData.find(p => p.id === projectId);
   if (!projectData) { console.error(`No data for project: ${projectId}`); return; }
@@ -339,6 +398,9 @@ function createProjectWindow(projectData) {
   openWindow(windowId);
 }
 
+// ===================================================
+// LÓGICA DEL MENÚ DE INICIO
+// ===================================================
 const startButton = document.querySelector('.start-button');
 const startMenu = document.getElementById('start-menu');
 const contextMenu = document.getElementById('context-menu');
@@ -368,6 +430,9 @@ function openWindowFromMenu(windowId) {
   closeContextMenu();
 }
 
+// ===================================================
+// LÓGICA DE LOG OFF / TURN OFF
+// ===================================================
 function logOff() {
   startMenu.style.display = 'none';
   desktop.style.display = 'none';
@@ -396,6 +461,9 @@ function turnOff() {
   setTimeout(() => { window.close(); }, 2000);
 }
 
+// ===================================================
+// LÓGICA DEL MENÚ DE CLIC DERECHO
+// ===================================================
 desktop.addEventListener('contextmenu', (event) => {
   event.preventDefault();
   startMenu.style.display = 'none';
@@ -413,6 +481,9 @@ function refreshDesktop() {
   closeContextMenu();
 }
 
+// ===================================================
+// RENDERIZADO DE LA CARPETA "MIS PROYECTOS"
+// ===================================================
 function renderProjectIcons() {
   const container = document.querySelector('#projects .project-showcase');
   if (!container) return;
@@ -434,6 +505,9 @@ function renderProjectIcons() {
 
 document.addEventListener('DOMContentLoaded', renderProjectIcons);
 
+// ===================================================
+// LÓGICA DEL LIBRO DE VISITAS (CONECTADO A RENDER)
+// ===================================================
 const API_URL = "https://xp-backend-auth.onrender.com/api/guestbook";
 
 async function loadMessages() {
@@ -499,6 +573,58 @@ async function postMessage() {
   }
 }
 
+// ===================================================
+// LÓGICA DE LA CARPETA SECRETA (HACKER)
+// ===================================================
+const secretText = [
+  "INICIANDO PROTOCOLO DE INTRUSIÓN...",
+  "ACCEDIENDO AL NÚCLEO...",
+  "Detectando habilidades del usuario Mirko...",
+  "> Carga de HTML5.............. [COMPLETADO]",
+  "> Carga de CSS3 / Grid........ [COMPLETADO]",
+  "> Inyección de JavaScript..... [ÉXITO]",
+  "> Servidor Node.js............ [CONECTADO]",
+  "> Base de Datos SQL........... [HACKEADA]",
+  "----------------------------------------",
+  "ANÁLISIS FINAL: PERFIL FULL STACK CONFIRMADO.",
+  "----------------------------------------",
+  "ADVERTENCIA: Talento altamente contratable.",
+  "Por favor, cierre esta ventana y contacte inmediatamente."
+];
+
+let typingIndex = 0;
+let lineIndex = 0;
+let isTyping = false;
+
+function typeWriter() {
+  const terminal = document.getElementById('terminal-text');
+  if (!terminal) return;
+  
+  if (lineIndex >= secretText.length) {
+    terminal.innerHTML += '<br><span class="cursor"></span>';
+    isTyping = false;
+    return;
+  }
+
+  const currentLine = secretText[lineIndex];
+
+  if (typingIndex < currentLine.length) {
+    let displayedText = "";
+    for(let i=0; i<lineIndex; i++) {
+        displayedText += secretText[i] + "<br>";
+    }
+    displayedText += currentLine.substring(0, typingIndex + 1);
+    
+    terminal.innerHTML = displayedText + '<span class="cursor"></span>';
+    typingIndex++;
+    setTimeout(typeWriter, 30);
+  } else {
+    typingIndex = 0;
+    lineIndex++;
+    setTimeout(typeWriter, 300);
+  }
+}
+
 function sendEmailToMirko() {
   const subject = document.getElementById('email-subject').value;
   const body = document.getElementById('email-body').value;
@@ -507,8 +633,149 @@ function sendEmailToMirko() {
     alert("Por favor escribe un mensaje antes de enviar.");
     return;
   }
-
   const mailtoLink = `mailto:mirkovidal2023@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  
   window.open(mailtoLink, '_blank');
+}
+
+// ===================================================
+// LÓGICA DE MSN MESSENGER (BOT)
+// ===================================================
+function addMsnMessage(sender, text, isBot = true) {
+  const history = document.getElementById('msn-history');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `msn-msg ${isBot ? 'bot' : 'user'}`;
+  msgDiv.innerHTML = `<span class="sender">${sender} dice:</span> <span class="text">${text}</span>`;
+  history.appendChild(msgDiv);
+  history.scrollTop = history.scrollHeight;
+}
+
+function askBot(topic) {
+  let userText = "";
+  if (topic === 'tech') userText = "¿Qué tecnologías usas?";
+  if (topic === 'exp') userText = "¿Tienes experiencia?";
+  if (topic === 'hire') userText = "¿Cómo te contrato?";
+  if (topic === 'nudge') userText = "¡Zumbido!";
+  
+  if (topic !== 'nudge') {
+      addMsnMessage("Reclutador", userText, false);
+  }
+
+  setTimeout(() => {
+    let botResponse = "";
+    
+    if (topic === 'tech') {
+      botResponse = "Soy Full Stack. En Backend uso <strong>Node.js y Python</strong>. En Frontend manejo HTML5, CSS3 y JS puro. También sé SQL y Git.";
+    } else if (topic === 'exp') {
+      botResponse = "He desarrollado APIs RESTful, scripts de automatización y aplicaciones web interactivas como este portafolio. ¡Revisa la carpeta 'Mis Proyectos'!";
+    } else if (topic === 'hire') {
+      botResponse = "¡Genial! Puedes enviarme un correo usando Outlook Express en el escritorio o contactarme por LinkedIn.";
+    } else if (topic === 'nudge') {
+      const windowElement = document.getElementById('msn-messenger');
+      windowElement.classList.add('shake-anim');
+      setTimeout(() => windowElement.classList.remove('shake-anim'), 500);
+      botResponse = "¡Oye! ¡Aquí estoy! 👀";
+    }
+
+    addMsnMessage("MirkoBot", botResponse, true);
+  }, 800);
+}
+
+// ===================================================
+// LÓGICA DEL BLOC DE NOTAS
+// ===================================================
+const textFiles = {
+  readme: 
+`HOLA RECLUTADOR/VISITANTE:
+
+¡Gracias por indagar en mis carpetas! 
+Este portafolio fue construido con mucho esfuerzo para demostrar que el Frontend puede ser divertido.
+
+Si estás leyendo esto, significa que eres curioso, una cualidad que valoro mucho.
+
+No dudes en probar el comando "SECRET" en la terminal o dejarme un mensaje en el servidor.
+
+Atte,
+Mirko Vidal`,
+
+  skills:
+`LISTA DE HABILIDADES BLANDAS (SOFT SKILLS):
+
+[x] Comunicación Efectiva
+    - Capacidad para explicar conceptos técnicos a no-técnicos.
+
+[x] Trabajo en Equipo
+    - Experiencia colaborando en repositorios Git y Code Reviews.
+
+[x] Adaptabilidad
+    - Aprendizaje rápido de nuevos frameworks (como aprendí a conectar Supabase en 1 día).
+
+[x] Resolución de Problemas
+    - Enfoque analítico para depurar errores (Debugging).`,
+
+  config:
+`{
+  "developer": "Mirko Vidal",
+  "editor": "VS Code",
+  "theme": "Dark Mode",
+  "coffee_dependence": "High",
+  "tabs_vs_spaces": "Spaces",
+  "preferred_stack": [
+    "Node.js",
+    "React / Vanilla JS",
+    "Python",
+    "PostgreSQL"
+  ],
+  "looking_for_work": true
+}`
+};
+
+function openNotepad(fileKey) {
+  const windowId = 'notepad';
+  const title = document.getElementById('notepad-title');
+  const textarea = document.getElementById('notepad-area');
+  
+  if (textFiles[fileKey]) {
+    textarea.value = textFiles[fileKey];
+    title.textContent = `${fileKey.toUpperCase()}.txt - Bloc de notas`;
+  } else {
+    textarea.value = "Error al leer el archivo.";
+  }
+
+  openWindow(windowId);
+}
+
+// ===================================================
+// LÓGICA DEL PANEL DE CONTROL (FONDO DE PANTALLA)
+// ===================================================
+function selectWallpaper(imageUrl) {
+  selectedBg = imageUrl;
+  // Actualizar la vista previa en el monitor chiquito
+  const preview = document.getElementById('cp-wallpaper-preview');
+  if(preview) {
+    preview.style.backgroundImage = `url('${imageUrl}')`;
+  }
+  
+  // Resaltar la selección en la lista
+  document.querySelectorAll('.wallpaper-item').forEach(item => {
+    item.classList.remove('selected');
+    // Compara si la imagen dentro del item coincide con la seleccionada
+    if(item.querySelector('img').getAttribute('src') === imageUrl) {
+      item.classList.add('selected');
+    }
+  });
+}
+
+function applyWallpaper() {
+  // Cambiar el fondo del body
+  document.body.style.backgroundImage = `url('${selectedBg}')`;
+  // GUARDAR EN MEMORIA (LOCALSTORAGE)
+  localStorage.setItem('xp_wallpaper', selectedBg);
+  
+  // Cambiar también el fondo de la pantalla de bloqueo para que coincida
+  const lockScreen = document.getElementById('lock-screen');
+  if(lockScreen) {
+      lockScreen.style.backgroundImage = `url('${selectedBg}')`;
+  }
+  // Cerrar ventana
+  closeWindow('control-panel');
 }
