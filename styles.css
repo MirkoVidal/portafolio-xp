@@ -1364,3 +1364,102 @@ canvas {
         height: calc(100% - 80px);
     }
 }
+
+/* ===================================================  */
+/*              ANIMACIONES MODERNAS                   */
+/* =================================================== */
+
+:root {
+    --ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes windowPop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -40%) scale(0.90);
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        filter: blur(0px);
+    }
+}
+
+.window[style*="display: block"]:not([data-state="maximized"]) {
+    animation: windowPop 0.4s var(--ease-elastic) forwards;
+    transform-origin: center center;
+}
+
+@keyframes maximizeFade {
+    0% { opacity: 0; transform: scale(0.98); }
+    100% { opacity: 1; transform: scale(1); }
+}
+.window[data-state="maximized"][style*="display: block"] {
+    animation: maximizeFade 0.3s var(--ease-smooth) forwards;
+}
+
+@keyframes menuSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+#start-menu[style*="display: block"] {
+    animation: menuSlideUp 0.35s var(--ease-elastic) forwards;
+    transform-origin: bottom left;
+}
+
+.icon {
+    transition: all 0.2s var(--ease-smooth);
+}
+
+.icon:hover {
+    transform: translateY(-3px) scale(1.05);
+    filter: brightness(1.1) drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+.icon:active {
+    transform: scale(0.95);
+    filter: brightness(0.9);
+}
+
+.window-controls button {
+    transition: transform 0.2s var(--ease-smooth), filter 0.2s;
+}
+
+.window-controls button:hover {
+    transform: scale(1.15);
+    z-index: 2;
+}
+
+.window-controls button:active {
+    transform: scale(0.9);
+}
+
+.taskbar-icon {
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.taskbar-icon:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid #fff;
+}
+
+#context-menu {
+    transform-origin: top left;
+    animation: menuFade 0.15s ease-out;
+}
+@keyframes menuFade {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
