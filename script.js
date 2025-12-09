@@ -1,10 +1,8 @@
 // ===================================================
 // VARIABLE GLOBAL Y CARGA DE FONDO GUARDADO
 // ===================================================
-// 1. Intentamos leer la memoria. Si no hay nada, usamos el original.
 let selectedBg = localStorage.getItem('xp_wallpaper') || 'images/windows-xp-background.jpg';
 
-// 2. Aplicamos el fondo INMEDIATAMENTE para que no parpadee al dar F5
 document.body.style.backgroundImage = `url('${selectedBg}')`;
 
 // ===================================================
@@ -69,7 +67,6 @@ const startupSound = new Audio('xp_startup.wav');
 startupSound.volume = 0.5;
 
 function playStartupSound() {
-    // Intentamos reproducir, si falla (por bloqueos del navegador) no hacemos nada.
     startupSound.play().catch(error => {
         console.log("Audio bloqueado por el navegador hasta interactuar.");
     });
@@ -88,7 +85,6 @@ function runBootSequence() {
     desktop.style.display = 'none';
     taskbar.style.display = 'none';
 
-    // Aseguramos que la pantalla de bloqueo también tenga el fondo guardado
     lockScreen.style.backgroundImage = `url('${selectedBg}')`;
 
     const bootTime = 5000;
@@ -146,12 +142,10 @@ function openWindow(windowId) {
 function closeWindow(windowId) {
     const windowElement = document.getElementById(windowId);
 
-    // LIMPIEZA ESPECÍFICA DE APPS
     if (windowId === 'snake-game') {
         stopSnakeGame();
     }
     if (windowId === 'secret-folder') {
-        // Detener la escritura hacker si se cierra la ventana
         clearTimeout(typingTimer);
         isTyping = false;
     }
@@ -317,7 +311,6 @@ let score = 0;
 const box = 20;
 let isGameRunning = false;
 
-// 1. El listener se define AFUERA para poder removerlo
 function handleSnakeControls(event) {
     if (!isGameRunning) return;
     if (event.keyCode === 37 && direction !== 'RIGHT') direction = 'LEFT';
@@ -330,7 +323,6 @@ function startSnakeGame() {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     
-    // Reiniciar variables
     snake = [{ x: 9 * box, y: 10 * box }];
     direction = undefined;
     score = 0;
@@ -339,7 +331,6 @@ function startSnakeGame() {
     
     isGameRunning = true;
     
-    // Evitar múltiples listeners
     document.removeEventListener('keydown', handleSnakeControls);
     document.addEventListener('keydown', handleSnakeControls);
 
@@ -500,8 +491,6 @@ function logIn() {
     desktop.style.display = 'grid';
     taskbar.style.display = 'flex';
     
-    // REPRODUCCIÓN SEGURA DEL AUDIO
-    // Al ser un evento de usuario (click), el navegador permite el audio.
     startupSound.currentTime = 0;
     playStartupSound();
 }
@@ -655,11 +644,11 @@ const secretText = [
 let typingIndex = 0;
 let lineIndex = 0;
 let isTyping = false;
-let typingTimer; // NUEVO: Para poder cancelar la animación
+let typingTimer;
 
 function typeWriter() {
     const terminal = document.getElementById('terminal-text');
-    if (!terminal || !isTyping) return; // Si isTyping es false, paramos
+    if (!terminal || !isTyping) return;
 
     if (lineIndex >= secretText.length) {
         terminal.innerHTML += '<br><span class="cursor"></span>';
@@ -678,11 +667,11 @@ function typeWriter() {
 
         terminal.innerHTML = displayedText + '<span class="cursor"></span>';
         typingIndex++;
-        typingTimer = setTimeout(typeWriter, 30); // Guardamos la referencia
+        typingTimer = setTimeout(typeWriter, 30);
     } else {
         typingIndex = 0;
         lineIndex++;
-        typingTimer = setTimeout(typeWriter, 300); // Guardamos la referencia
+        typingTimer = setTimeout(typeWriter, 300);
     }
 }
 
@@ -807,16 +796,13 @@ function openNotepad(fileKey) {
 // ===================================================
 function selectWallpaper(imageUrl) {
     selectedBg = imageUrl;
-    // Actualizar la vista previa en el monitor chiquito
     const preview = document.getElementById('cp-wallpaper-preview');
     if (preview) {
         preview.style.backgroundImage = `url('${imageUrl}')`;
     }
 
-    // Resaltar la selección en la lista
     document.querySelectorAll('.wallpaper-item').forEach(item => {
         item.classList.remove('selected');
-        // Compara si la imagen dentro del item coincide con la seleccionada
         if (item.querySelector('img').getAttribute('src') === imageUrl) {
             item.classList.add('selected');
         }
@@ -824,16 +810,12 @@ function selectWallpaper(imageUrl) {
 }
 
 function applyWallpaper() {
-    // Cambiar el fondo del body
     document.body.style.backgroundImage = `url('${selectedBg}')`;
-    // GUARDAR EN MEMORIA (LOCALSTORAGE)
     localStorage.setItem('xp_wallpaper', selectedBg);
 
-    // Cambiar también el fondo de la pantalla de bloqueo para que coincida
     const lockScreen = document.getElementById('lock-screen');
     if (lockScreen) {
         lockScreen.style.backgroundImage = `url('${selectedBg}')`;
     }
-    // Cerrar ventana
     closeWindow('control-panel');
 }

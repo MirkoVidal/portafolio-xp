@@ -8,10 +8,8 @@
 body {
     margin: 0;
     padding: 0;
-    /* IMAGEN INICIAL */
     background-image: url('images/windows-xp-background.jpg');
 
-    /* ESTILOS DE CALIDAD */
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -53,7 +51,6 @@ body {
     width: 100%;
     height: 100%;
 
-    /* === FONDO DE PANTALLA === */
     background-image: url('images/windows-xp-background.jpg');
     background-position: center center;
     background-repeat: no-repeat;
@@ -92,7 +89,7 @@ body {
 }
 
 .lock-screen-user {
-    font-family: 'Tahoma', sans-serif;
+    font-family: 'Press Start 2P', sans-serif;
     font-size: 24px;
     color: white;
     font-weight: bold;
@@ -101,7 +98,7 @@ body {
 }
 
 .lock-screen-hint {
-    font-family: 'Tahoma', sans-serif;
+    font-family: 'Press Start 2P', sans-serif;
     font-size: 14px;
     color: #ddd;
     text-shadow: 1px 1px 2px black;
@@ -170,7 +167,6 @@ body {
     transition: all 0.2s ease-in-out;
 }
 
-/* Tamaños específicos */
 #about { width: 600px; height: 570px; }
 #projects { width: 600px; height: 400px; }
 #contact { width: 500px; height: 350px; }
@@ -197,7 +193,6 @@ body {
     cursor: grab;
 }
 
-/* Temas especiales de ventanas (NUEVO) */
 .window-header.hacker-theme {
     background: #000;
     color: #0f0;
@@ -409,26 +404,24 @@ body {
 
 .menu-item {
     display: flex;
-    align-items: center; /* Esto centra el texto verticalmente con el icono */
+    align-items: center;
     padding: 8px 15px;
-    gap: 15px; /* Espacio OBLIGATORIO entre icono y texto */
+    gap: 15px; 
     text-decoration: none;
     color: black;
     
-    /* CAMBIO DE FUENTE PARA QUE ENTRE BIEN */
-    font-family: 'Tahoma', sans-serif; 
-    font-size: 13px; /* Tamaño legible */
-    font-weight: bold; /* En XP los menús eran negrita */
+    font-family: 'Press Start 2P', sans-serif; 
+    font-size: 13px; 
+    font-weight: bold; 
     
-    line-height: 1.2; /* Altura de línea ajustada */
+    line-height: 1.2; 
 }
 
-/* Aseguramos que el icono no se deforme */
 .menu-item img {
     width: 32px;
     height: 32px;
     object-fit: contain;
-    flex-shrink: 0; /* IMPIDE que el icono se aplaste si el texto es largo */
+    flex-shrink: 0;
 }
 
 .menu-col-left hr {
@@ -1136,7 +1129,6 @@ canvas {
     color: #00ff00;
 }
 
-/* === ESTILOS PANEL DE CONTROL === */
 .cp-content {
     padding: 20px;
     display: flex;
@@ -1156,7 +1148,6 @@ canvas {
     text-align: center;
 }
 
-/* Monitor hecho con CSS puro */
 .cp-monitor {
     width: 152px;
     height: 120px;
@@ -1266,7 +1257,6 @@ canvas {
 /* =================================================== */
 @media (max-width: 768px) {
 
-    /* 1. Ajustar el Escritorio */
     .desktop {
         padding: 10px;
         grid-template-columns: repeat(3, 1fr);
@@ -1288,7 +1278,6 @@ canvas {
         font-size: 9px;
     }
 
-    /* 2. Pantalla de Bloqueo Ajustada */
     .lock-screen-box {
         width: 90%;
         padding: 20px;
@@ -1300,7 +1289,6 @@ canvas {
         font-size: 18px;
     }
 
-    /* 3. VENTANAS FULL SCREEN (Modo App) */
     .window,
     #about,
     #projects,
@@ -1334,7 +1322,6 @@ canvas {
         -webkit-overflow-scrolling: touch;
     }
 
-    /* 4. Ajustes Específicos por App */
     #msn-messenger {
         width: 100% !important;
     }
