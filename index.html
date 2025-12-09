@@ -1,414 +1,434 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Portafolio - Windows XP</title>
-  <link rel="icon" type="image/png" href="images/portafolio-icon.png">
-  <meta name="description" content="Portafolio de Mirko Leonel Vidal, Técnico en Desarrollo Web Full Stack. Proyectos en Node.js, Python, SQL y diseño web interactivo estilo Windows XP.">
-  <meta name="keywords" content="Mirko Vidal, Desarrollador Web, Full Stack, Paraná, Entre Ríos, Programador, Portfolio, Windows XP, Node.js, Python">
-  <meta name="author" content="Mirko Leonel Vidal">
-  <meta name="robots" content="index, follow">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Mirko Vidal - Desarrollador Full Stack">
-  <meta property="og:description" content="¡Bienvenido a mi escritorio! Entra a mi portafolio interactivo estilo Windows XP.">
-  <meta property="og:image" content="images/projects/portfolio/desktop.png">
-
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio - Windows XP</title>
+    <link rel="icon" type="image/png" href="images/portafolio-icon.png">
+    <meta name="description" content="Portafolio de Mirko Leonel Vidal, Técnico en Desarrollo Web Full Stack. Proyectos en Node.js, Python, SQL y diseño web interactivo estilo Windows XP.">
+    <meta name="keywords" content="Mirko Vidal, Desarrollador Web, Full Stack, Paraná, Entre Ríos, Programador, Portfolio, Windows XP, Node.js, Python">
+    <meta name="author" content="Mirko Leonel Vidal">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mirko Vidal - Desarrollador Full Stack">
+    <meta property="og:description" content="¡Bienvenido a mi escritorio! Entra a mi portafolio interactivo estilo Windows XP.">
+    <meta property="og:image" content="images/projects/portfolio/desktop.png">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-
-  <div id="boot-screen">
-    <img src="images/xp-boot.gif" alt="Cargando...">
-  </div>
-
-  <div id="lock-screen">
-    <div class="lock-screen-box">
-      <img src="images/user-pic.png" alt="User" onclick="logIn()">
-      <span class="lock-screen-user">Mirko Vidal</span>
-      <span class="lock-screen-hint">Haz clic en tu usuario para iniciar sesión</span>
-    </div>
-  </div>
-
-  <div class="taskbar">
-    <div class="start-button">
-      <img src="images/start-button.png" alt="Inicio">
-      <span></span>
-    </div>
-    <div class="taskbar-windows">
-    </div>
-    <div class="taskbar-clock" id="clock"></div>
-  </div>
-
-  <div id="start-menu">
-    <div class="start-menu-header">
-      <img src="images/user-pic.png" alt="User">
-      <span>Mirko Vidal</span>
-    </div>
-    <div class="start-menu-main">
-      <div class="menu-col-left">
-        <a href="#" class="menu-item" onclick="openWindowFromMenu('internet')">
-          <img src="images/internet-icon.png"> Internet
-        </a>
-        <a href="#" class="menu-item" onclick="openWindowFromMenu('contact')">
-          <img src="images/contact-icon.png"> Email (Contacto)
-        </a>
-        <hr>
-        <a href="#" class="menu-item" onclick="openWindowFromMenu('snake-game')">
-          <img src="images/snake-icon.png"> Snake
-        </a>
-      </div>
-      <div class="menu-col-right">
-        <a href="#" class="menu-item" onclick="openWindowFromMenu('control-panel')">
-          <img src="images/docs-icon.png"> Panel de Control
-        </a>
-        <a href="#" class="menu-item" onclick="openWindowFromMenu('projects')">
-          <img src="images/projects-icon.png"> Mis Proyectos
-        </a>
-        <a href="#" class="menu-item" onclick="openWindowFromMenu('about')">
-          <img src="images/about-icon.png"> Sobre Mí (Mi PC)
-        </a>
-        <hr>
-        <a href="#" class="menu-item" onclick="openWindowFromMenu('recycle-bin')">
-          <img src="images/recycle-bin-icon.png"> Papelera
-        </a>
-      </div>
-    </div>
-    <div class="start-menu-footer">
-      <span class="footer-button" onclick="logOff()">
-        Suspender
-      </span>
-      <span class="footer-button" onclick="turnOff()">
-        Apagar
-      </span>
-    </div>
-  </div>
-
-  <div class="desktop">
-    <div class="icon" onclick="openWindow('about')">
-      <img src="images/about-icon.png" alt="Sobre mí">
-      <p>Sobre mí</p>
-    </div>
-    <div class="icon" onclick="openWindow('projects')">
-      <img src="images/projects-icon.png" alt="Proyectos">
-      <p>Proyectos</p>
-    </div>
-    <div class="icon" onclick="openWindow('contact')">
-      <img src="images/contact-icon.png" alt="Contacto">
-      <p>Contacto</p>
-    </div>
-    <div class="icon" onclick="openWindow('snake-game')">
-      <img src="images/snake-icon.png" alt="Snake">
-      <p>Snake</p>
-    </div>
-    <div class="icon" onclick="openWindow('internet')">
-      <img src="images/internet-icon.png" alt="Internet">
-      <p>Internet</p>
-    </div>
-    
-    <div class="icon" onclick="openWindow('control-panel')">
-      <img src="images/docs-icon.png" alt="Panel de Control">
-      <p>Panel de Control</p>
+  
+    <div id="boot-screen">
+        <img src="images/xp-boot.gif" alt="Cargando...">
     </div>
 
-    <div class="icon" onclick="openWindow('recycle-bin')">
-      <img src="images/recycle-bin-icon.png" alt="Papelera">
-      <p>Papelera de Reciclaje</p>
-    </div>
-    <div class="icon" onclick="openWindow('guestbook')">
-      <img src="images/docs-icon.png" alt="Guestbook">
-      <p>Libro de Visitas</p>
-    </div>
-    <div class="icon" onclick="openWindow('secret-folder')">
-      <img src="images/docs-icon.png" alt="SECRET" style="filter: hue-rotate(140deg) brightness(0.8) contrast(1.2);"> 
-      <p style="color: red; font-weight: bold;">NO ABRIR</p>
-    </div>
-    <div class="icon" onclick="openWindow('msn-messenger')">
-      <img src="images/user-pic.png" alt="MSN" style="border: 2px solid #fff; border-radius: 5px;">
-      <p>MSN Messenger</p>
-    </div>
-  </div>
-
-  <div id="about" class="window">
-    <div class="window-header">
-      <span class="window-title">Sobre mí</span>
-      <div class="window-controls">
-        <button class="window-minimize" onclick="minimizeWindow('about')">_</button>
-        <button class="window-maximize" onclick="toggleMaximizeWindow('about')">[]</button>
-        <button class="window-close" onclick="closeWindow('about')">X</button>
-      </div>
-    </div>
-    <div class="window-content">
-      <p>Hola, soy <strong>Mirko Leonel Vidal</strong>, Desarrollador <strong>Full Stack</strong> y estudiante de la Tecnicatura en Desarrollo Web en la <strong>Universidad Nacional de Entre Ríos (UNER)</strong>.</p>
-      <p>Me entusiasma la infinidad de cosas que se pueden crear con código y la posibilidad de diseñar aplicaciones que resuelvan problemas reales.</p>
-      <div class="skills-section">
-        <h3>Mis Habilidades</h3>
-        <div class="skills-container">
-          <div class="skill-category"><h4>Lenguajes</h4><div class="skill-item"><img src="images/tech/python.png" alt="Python"><span>Python</span></div><div class="skill-item"><img src="images/tech/js.png" alt="JavaScript"><span>JavaScript</span></div></div>
-          <div class="skill-category"><h4>Web</h4><div class="skill-item"><img src="images/tech/html.png" alt="HTML5"><span>HTML5</span></div><div class="skill-item"><img src="images/tech/css.png" alt="CSS3"><span>CSS3</span></div><div class="skill-item"><img src="images/tech/node.png" alt="Node.js"><span>Node.js</span></div></div>
-          <div class="skill-category"><h4>Herramientas</h4><div class="skill-item"><img src="images/tech/git.png" alt="Git"><span>Git</span></div><div class="skill-item"><img src="images/tech/sqlite.png" alt="SQL"><span>SQL</span></div></div>
+    <div id="lock-screen">
+        <div class="lock-screen-box">
+            <img src="images/user-pic.png" alt="User" onclick="logIn()">
+            <span class="lock-screen-user">Mirko Vidal</span>
+            <span class="lock-screen-hint">Haz clic en tu usuario para iniciar sesión</span>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div id="projects" class="window">
-    <div class="window-header">
-      <span class="window-title">Mis Proyectos</span>
-      <div class="window-controls">
-        <button class="window-minimize" onclick="minimizeWindow('projects')">_</button>
-        <button class="window-maximize" onclick="toggleMaximizeWindow('projects')">[]</button>
-        <button class="window-close" onclick="closeWindow('projects')">X</button>
-      </div>
-    </div>
-    <div class="window-content project-showcase"><p>Estoy trabajando en mejorar mis proyectos y subirlos aquí. ¡Vuelve pronto!</p></div>
-  </div>
-
-  <div id="contact" class="window">
-    <div class="window-header">
-      <span class="window-title">Nuevo Mensaje - Outlook Express</span>
-      <div class="window-controls">
-        <button class="window-minimize" onclick="minimizeWindow('contact')">_</button>
-        <button class="window-maximize" onclick="toggleMaximizeWindow('contact')">[]</button>
-        <button class="window-close" onclick="closeWindow('contact')">X</button>
-      </div>
-    </div>
-    <div class="window-content outlook-content">
-      <div class="outlook-header-area">
-        <div class="outlook-row">
-          <label>Para:</label>
-          <div class="input-fake">mirkovidal2023@gmail.com</div>
+    <div class="taskbar">
+        <div class="start-button">
+            <img src="images/start-button.png" alt="Inicio">
+            <span></span>
         </div>
-        <div class="outlook-row">
-          <label>Asunto:</label>
-          <input type="text" id="email-subject" placeholder="Propuesta Laboral / Consulta">
-        </div>
-      </div>
-      <div class="outlook-toolbar">
-        <button onclick="sendEmailToMirko()">✉️ Enviar</button>
-        <button onclick="closeWindow('contact')">🗑️ Cancelar</button>
-      </div>
-      <textarea id="email-body" class="outlook-body" placeholder="Escribe tu mensaje aquí..."></textarea>
-    </div>
-  </div>
-
-  <div id="snake-game" class="window">
-    <div class="window-header">
-      <span class="window-title">Juego de la Serpiente</span>
-      <div class="window-controls">
-        <button class="window-minimize" onclick="minimizeWindow('snake-game')">_</button>
-        <button class="window-maximize" onclick="toggleMaximizeWindow('snake-game')">[]</button>
-        <button class="window-close" onclick="closeWindow('snake-game')">X</button>
-      </div>
-    </div>
-    <div class="window-content"><canvas id="gameCanvas" width="500" height="400"></canvas><p>Puntuación: <span id="score">0</span></p></div>
-  </div>
-
-  <div id="internet" class="window">
-    <div class="window-header">
-      <span class="window-title">Internet Explorer - Mirko Web</span>
-      <div class="window-controls">
-        <button class="window-minimize" onclick="minimizeWindow('internet')">_</button>
-        <button class="window-maximize" onclick="toggleMaximizeWindow('internet')">[]</button>
-        <button class="window-close" onclick="closeWindow('internet')">X</button>
-      </div>
-    </div>
-    <div class="window-content ie-content">
-      <div class="ie-toolbar">
-        <span>Dirección:</span>
-        <input type="text" value="https://www.mirko-vidal.com/links" readonly>
-        <button>Ir</button>
-      </div>
-      <div class="ie-page">
-        <div class="ie-header">
-          <h1>Bienvenido a la Red</h1>
-          <p>Seleccione un destino para continuar:</p>
-        </div>
-        <div class="ie-links">
-          <a href="https://www.linkedin.com/in/mirko-vidal-0a6b88270/" target="_blank" class="ie-link-item">
-            <img src="images/internet-icon.png" alt="LinkedIn">
-            <div class="link-text">
-              <strong>Perfil Profesional</strong>
-              <span>Visitar LinkedIn</span>
+        <div class="taskbar-windows">
             </div>
-          </a>
-          <a href="https://github.com/MirkoVidal" target="_blank" class="ie-link-item">
-            <img src="images/projects-icon.png" alt="GitHub">
-            <div class="link-text">
-              <strong>Repositorios de Código</strong>
-              <span>Visitar GitHub</span>
+        <div class="taskbar-clock" id="clock"></div>
+    </div>
+
+    <div id="start-menu">
+        <div class="start-menu-header">
+            <img src="images/user-pic.png" alt="User">
+            <span>Mirko Vidal</span>
+        </div>
+        <div class="start-menu-main">
+            <div class="menu-col-left">
+                <a href="#" class="menu-item" onclick="openWindowFromMenu('internet')">
+                    <img src="images/internet-icon.png"> Internet
+                </a>
+                <a href="#" class="menu-item" onclick="openWindowFromMenu('contact')">
+                    <img src="images/tarjeta-de-contacto.png"> Contacto
+                </a>
+                <hr>
+                <a href="#" class="menu-item" onclick="openWindowFromMenu('snake-game')">
+                    <img src="images/snake-icon.png"> Snake
+                </a>
             </div>
-          </a>
-          <a href="Curriculum.pdf" target="_blank" class="ie-link-item">
-            <img src="images/pdf-icon.png" alt="CV">
-            <div class="link-text">
-              <strong>Currículum Vitae</strong>
-              <span>Ver Documento PDF</span>
+            <div class="menu-col-right">
+                <a href="#" class="menu-item" onclick="openWindowFromMenu('control-panel')">
+                    <img src="images/panel-de-control.png"> Panel de Control
+                </a>
+                <a href="#" class="menu-item" onclick="openWindowFromMenu('projects')">
+                    <img src="images/projects-icon.png"> Mis Proyectos
+                </a>
+                <a href="#" class="menu-item" onclick="openWindowFromMenu('about')">
+                    <img src="images/about-icon.png"> Sobre Mí
+                </a>
+                <hr>
+                <a href="#" class="menu-item" onclick="openWindowFromMenu('recycle-bin')">
+                    <img src="images/recycle-bin-icon.png"> Papelera
+                </a>
             </div>
-          </a>
         </div>
-        <div class="ie-footer">
-          <p>Zona segura. Libre de virus.</p>
+        <div class="start-menu-footer">
+            <span class="footer-button" onclick="logOff()">
+                Suspender
+            </span>
+            <span class="footer-button" onclick="turnOff()">
+                Apagar
+            </span>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div id="control-panel" class="window">
-    <div class="window-header">
-      <span class="window-title">Propiedades de Pantalla</span>
-      <div class="window-controls">
-        <button class="window-minimize" onclick="minimizeWindow('control-panel')">_</button>
-        <button class="window-maximize" onclick="toggleMaximizeWindow('control-panel')">[]</button>
-        <button class="window-close" onclick="closeWindow('control-panel')">X</button>
-      </div>
-    </div>
-    <div class="window-content cp-content">
-      <div class="cp-layout">
-        <div class="cp-preview-area">
-          <div class="cp-monitor">
-            <div id="cp-wallpaper-preview" class="cp-wallpaper-preview"></div>
-          </div>
-          <p>Vista previa</p>
+    <div class="desktop">
+        <div class="icon" onclick="openWindow('about')">
+            <img src="images/about-icon.png" alt="Sobre mí">
+            <p>Sobre mí</p>
         </div>
-        <div class="cp-options-area">
-          <p>Seleccione un tema de fondo:</p>
-<div class="wallpaper-list">
-            <div class="wallpaper-item" onclick="selectWallpaper('images/windows-xp-background.jpg')">
-              <img src="images/windows-xp-background.jpg" alt="Original">
-              <span>Windows XP Original</span>
+        <div class="icon" onclick="openWindow('projects')">
+            <img src="images/projects-icon.png" alt="Proyectos">
+            <p>Mis Proyectos</p>
+        </div>
+        <div class="icon" onclick="openWindow('contact')">
+            <img src="images/tarjeta-de-contacto.png" alt="Contacto">
+            <p>Contacto</p>
+        </div>
+        <div class="icon" onclick="openWindow('snake-game')">
+            <img src="images/snake-icon.png" alt="Snake">
+            <p>Snake</p>
+        </div>
+        <div class="icon" onclick="openWindow('internet')">
+            <img src="images/internet-icon.png" alt="Internet">
+            <p>Internet</p>
+        </div>
+
+        <div class="icon" onclick="openWindow('control-panel')">
+            <img src="images/panel-de-control.png" alt="Panel de Control">
+            <p>Panel de Control</p>
+        </div>
+
+        <div class="icon" onclick="openWindow('recycle-bin')">
+            <img src="images/recycle-bin-icon.png" alt="Papelera">
+            <p>Papelera de Reciclaje</p>
+        </div>
+        <div class="icon" onclick="openWindow('guestbook')">
+            <img src="images/libro-de-visitas.png" alt="Guestbook">
+            <p>Libro de Visitas</p>
+        </div>
+        <div class="icon" onclick="openWindow('secret-folder')">
+            <img src="images/carpeta-stop.png" alt="SECRET">
+            <p style="color: rgb(255, 255, 255); font-weight: bold;">NO ABRIR</p>
+        </div>
+        <div class="icon" onclick="openWindow('msn-messenger')">
+            <img src="images/msn-messenger.png" alt="MSN">
+            <p>MSN Messenger</p>
+        </div>
+    </div>
+
+    <div id="about" class="window">
+        <div class="window-header">
+            <span class="window-title">Sobre mí</span>
+            <div class="window-controls">
+                <button class="window-minimize" onclick="minimizeWindow('about')">_</button>
+                <button class="window-maximize" onclick="toggleMaximizeWindow('about')">[]</button>
+                <button class="window-close" onclick="closeWindow('about')">X</button>
             </div>
-            
-            <div class="wallpaper-item" onclick="selectWallpaper('images/wallpapers/fondo1.png')">
-              <img src="images/wallpapers/fondo1.png" alt="Fondo 1">
-              <span>Fondo Personal 1</span>
+        </div>
+        <div class="window-content">
+            <p>Hola, soy <strong>Mirko Leonel Vidal</strong>, Desarrollador <strong>Full Stack</strong> y estudiante de la Tecnicatura en Desarrollo Web en la <strong>Universidad Nacional de Entre Ríos (UNER)</strong>.</p>
+            <p>Me entusiasma la infinidad de cosas que se pueden crear con código y la posibilidad de diseñar aplicaciones que resuelvan problemas reales.</p>
+            <div class="skills-section">
+                <h3>Mis Habilidades</h3>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h4>Lenguajes</h4>
+                        <div class="skill-item"><img src="images/tech/python.png" alt="Python"><span>Python</span></div>
+                        <div class="skill-item"><img src="images/tech/js.png" alt="JavaScript"><span>JavaScript</span></div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Web</h4>
+                        <div class="skill-item"><img src="images/tech/html.png" alt="HTML5"><span>HTML5</span></div>
+                        <div class="skill-item"><img src="images/tech/css.png" alt="CSS3"><span>CSS3</span></div>
+                        <div class="skill-item"><img src="images/tech/node.png" alt="Node.js"><span>Node.js</span></div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Herramientas</h4>
+                        <div class="skill-item"><img src="images/tech/git.png" alt="Git"><span>Git</span></div>
+                        <div class="skill-item"><img src="images/tech/sqlite.png" alt="SQL"><span>SQL</span></div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
 
-            <div class="wallpaper-item" onclick="selectWallpaper('images/wallpapers/fondo2.png')">
-              <img src="images/wallpapers/fondo2.png" alt="Fondo 2">
-              <span>Fondo Personal 2</span>
+    <div id="projects" class="window">
+        <div class="window-header">
+            <span class="window-title">Mis Proyectos</span>
+            <div class="window-controls">
+                <button class="window-minimize" onclick="minimizeWindow('projects')">_</button>
+                <button class="window-maximize" onclick="toggleMaximizeWindow('projects')">[]</button>
+                <button class="window-close" onclick="closeWindow('projects')">X</button>
             </div>
+        </div>
+        <div class="window-content project-showcase">
+            <p>Estoy trabajando en mejorar mis proyectos y subirlos aquí. ¡Vuelve pronto!</p>
+        </div>
+    </div>
 
-            <div class="wallpaper-item" onclick="selectWallpaper('images/wallpapers/fondo3.png')">
-              <img src="images/wallpapers/fondo3.png" alt="Fondo 3">
-              <span>Fondo Personal 3</span>
+    <div id="contact" class="window">
+        <div class="window-header">
+            <span class="window-title">Nuevo Mensaje - Outlook Express</span>
+            <div class="window-controls">
+                <button class="window-minimize" onclick="minimizeWindow('contact')">_</button>
+                <button class="window-maximize" onclick="toggleMaximizeWindow('contact')">[]</button>
+                <button class="window-close" onclick="closeWindow('contact')">X</button>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="cp-actions">
-        <button onclick="applyWallpaper()">Aplicar</button>
-        <button onclick="closeWindow('control-panel')">Cancelar</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="recycle-bin" class="window">
-    <div class="window-header">
-      <span class="window-title">Papelera de Reciclaje</span>
-      <div class="window-controls">
-        <button class="window-minimize" onclick="minimizeWindow('recycle-bin')">_</button>
-        <button class="window-maximize" onclick="toggleMaximizeWindow('recycle-bin')">[]</button>
-        <button class="window-close" onclick="closeWindow('recycle-bin')">X</button>
-      </div>
-    </div>
-    <div class="window-content recycle-bin-content"><p>La papelera está vacía.</p></div>
-  </div>
-
-  <div id="guestbook" class="window">
-    <div class="window-header">
-      <span class="window-title">Libro de Visitas - v1.0</span>
-      <div class="window-controls">
-        <button class="window-minimize" onclick="minimizeWindow('guestbook')">_</button>
-        <button class="window-maximize" onclick="toggleMaximizeWindow('guestbook')">[]</button>
-        <button class="window-close" onclick="closeWindow('guestbook')">X</button>
-      </div>
-    </div>
-    <div class="window-content guestbook-content">
-      <div class="guestbook-form">
-        <p>¡Deja tu firma en mi muro!</p>
-        <input type="text" id="gb-name" placeholder="Tu Nombre" maxlength="20">
-        <textarea id="gb-msg" placeholder="Escribe un mensaje..." maxlength="100"></textarea>
-        <button onclick="postMessage()">Enviar Firma</button>
-      </div>
-      <div class="guestbook-list" id="gb-list">
-        <p>Cargando mensajes del servidor...</p>
-      </div>
-    </div>
-  </div>
-
-  <div id="secret-folder" class="window">
-    <div class="window-header" style="background: #000; color: #0f0; font-family: 'Courier New', monospace;">
-      <span class="window-title">SYSTEM_ROOT/HACKING...</span>
-      <div class="window-controls">
-        <button class="window-close" onclick="closeWindow('secret-folder')" style="background: #333; color: white;">X</button>
-      </div>
-    </div>
-    <div class="window-content secret-content">
-      <div id="terminal-text"></div>
-    </div>
-  </div>
-
-  <div id="msn-messenger" class="window">
-    <div class="window-header" style="background: linear-gradient(to right, #004e98, #fff);">
-      <span class="window-title" style="color: white; text-shadow: 1px 1px black;">MirkoBot - Conversación</span>
-      <div class="window-controls">
-        <button class="window-minimize" onclick="minimizeWindow('msn-messenger')">_</button>
-        <button class="window-close" onclick="closeWindow('msn-messenger')">X</button>
-      </div>
-    </div>
-    <div class="window-content msn-content">
-      <div class="msn-top-bar">
-        <img src="images/user-pic.png" alt="Buddy">
-        <div class="msn-status">
-          <strong>MirkoBot (Técnico Web)</strong>
-          <span>&lt;Disponible para trabajar&gt;</span>
+        <div class="window-content outlook-content">
+            <div class="outlook-header-area">
+                <div class="outlook-row">
+                    <label>Para:</label>
+                    <div class="input-fake">mirkovidal2023@gmail.com</div>
+                </div>
+                <div class="outlook-row">
+                    <label>Asunto:</label>
+                    <input type="text" id="email-subject" placeholder="Propuesta Laboral / Consulta">
+                </div>
+            </div>
+            <div class="outlook-toolbar">
+                <button onclick="sendEmailToMirko()">✉️ Enviar</button>
+                <button onclick="closeWindow('contact')">🗑️ Cancelar</button>
+            </div>
+            <textarea id="email-body" class="outlook-body" placeholder="Escribe tu mensaje aquí..."></textarea>
         </div>
-      </div>
-      <div class="msn-chat-history" id="msn-history">
+    </div>
+
+    <div id="snake-game" class="window">
+        <div class="window-header">
+            <span class="window-title">Juego de la Serpiente</span>
+            <div class="window-controls">
+                <button class="window-minimize" onclick="minimizeWindow('snake-game')">_</button>
+                <button class="window-maximize" onclick="toggleMaximizeWindow('snake-game')">[]</button>
+                <button class="window-close" onclick="closeWindow('snake-game')">X</button>
+            </div>
         </div>
-      <div class="msn-input-area">
-        <p>Selecciona una pregunta:</p>
-        <div class="msn-options">
-          <button onclick="askBot('tech')">¿Qué tecnologías usas?</button>
-          <button onclick="askBot('exp')">¿Tienes experiencia?</button>
-          <button onclick="askBot('hire')">¿Cómo te contrato?</button>
-          <button onclick="askBot('nudge')">¡Zumbido!</button>
+        <div class="window-content">
+            <canvas id="gameCanvas" width="500" height="400"></canvas>
+            <p>Puntuación: <span id="score">0</span></p>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div id="notepad" class="window">
-    <div class="window-header">
-      <span class="window-title" id="notepad-title">Bloc de notas</span>
-      <div class="window-controls">
-        <button class="window-minimize" onclick="minimizeWindow('notepad')">_</button>
-        <button class="window-maximize" onclick="toggleMaximizeWindow('notepad')">[]</button>
-        <button class="window-close" onclick="closeWindow('notepad')">X</button>
-      </div>
+    <div id="internet" class="window">
+        <div class="window-header">
+            <span class="window-title">Internet Explorer - Mirko Web</span>
+            <div class="window-controls">
+                <button class="window-minimize" onclick="minimizeWindow('internet')">_</button>
+                <button class="window-maximize" onclick="toggleMaximizeWindow('internet')">[]</button>
+                <button class="window-close" onclick="closeWindow('internet')">X</button>
+            </div>
+        </div>
+        <div class="window-content ie-content">
+            <div class="ie-toolbar">
+                <span>Dirección:</span>
+                <input type="text" value="https://www.mirko-vidal.com/links" readonly>
+                <button>Ir</button>
+            </div>
+            <div class="ie-page">
+                <div class="ie-header">
+                    <h1>Bienvenido a la Red</h1>
+                    <p>Seleccione un destino para continuar:</p>
+                </div>
+                <div class="ie-links">
+                    <a href="https://www.linkedin.com/in/mirko-vidal-0a6b88270/" target="_blank" class="ie-link-item">
+                        <img src="images/internet-icon.png" alt="LinkedIn">
+                        <div class="link-text">
+                            <strong>Perfil Profesional</strong>
+                            <span>Visitar LinkedIn</span>
+                        </div>
+                    </a>
+                    <a href="https://github.com/MirkoVidal" target="_blank" class="ie-link-item">
+                        <img src="images/projects-icon.png" alt="GitHub">
+                        <div class="link-text">
+                            <strong>Repositorios de Código</strong>
+                            <span>Visitar GitHub</span>
+                        </div>
+                    </a>
+                    <a href="Curriculum.pdf" target="_blank" class="ie-link-item">
+                        <img src="images/pdf-icon.png" alt="CV">
+                        <div class="link-text">
+                            <strong>Currículum Vitae</strong>
+                            <span>Ver Documento PDF</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="ie-footer">
+                    <p>Zona segura. Libre de virus.</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="window-content notepad-content">
-      <div class="notepad-menu">
-        <span>Archivo</span><span>Edición</span><span>Formato</span><span>Ver</span><span>Ayuda</span>
-      </div>
-      <textarea id="notepad-area" readonly></textarea>
+
+    <div id="control-panel" class="window">
+        <div class="window-header">
+            <span class="window-title">Propiedades de Pantalla</span>
+            <div class="window-controls">
+                <button class="window-minimize" onclick="minimizeWindow('control-panel')">_</button>
+                <button class="window-maximize" onclick="toggleMaximizeWindow('control-panel')">[]</button>
+                <button class="window-close" onclick="closeWindow('control-panel')">X</button>
+            </div>
+        </div>
+        <div class="window-content cp-content">
+            <div class="cp-layout">
+                <div class="cp-preview-area">
+                    <div class="cp-monitor">
+                        <div id="cp-wallpaper-preview" class="cp-wallpaper-preview"></div>
+                    </div>
+                    <p>Vista previa</p>
+                </div>
+                <div class="cp-options-area">
+                    <p>Seleccione un tema de fondo:</p>
+                    <div class="wallpaper-list">
+                        <div class="wallpaper-item" onclick="selectWallpaper('images/windows-xp-background.jpg')">
+                            <img src="images/windows-xp-background.jpg" alt="Original">
+                            <span>Windows XP Original</span>
+                        </div>
+
+                        <div class="wallpaper-item" onclick="selectWallpaper('images/wallpapers/fondo1.png')">
+                            <img src="images/wallpapers/fondo1.png" alt="Fondo 1">
+                            <span>Fondo Personal 1</span>
+                        </div>
+
+                        <div class="wallpaper-item" onclick="selectWallpaper('images/wallpapers/fondo2.png')">
+                            <img src="images/wallpapers/fondo2.png" alt="Fondo 2">
+                            <span>Fondo Personal 2</span>
+                        </div>
+
+                        <div class="wallpaper-item" onclick="selectWallpaper('images/wallpapers/fondo3.png')">
+                            <img src="images/wallpapers/fondo3.png" alt="Fondo 3">
+                            <span>Fondo Personal 3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cp-actions">
+                <button onclick="applyWallpaper()">Aplicar</button>
+                <button onclick="closeWindow('control-panel')">Cancelar</button>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div id="context-menu">
-    <ul>
-      <li onclick="refreshDesktop()">Actualizar</li>
-      <hr>
-      <li class="dummy-option" onclick="closeContextMenu()">Organizar iconos por</li>
-      <li class="dummy-option" onclick="closeContextMenu()">Nuevo</li>
-      <hr>
-      <li onclick="openWindowFromMenu('about')">Propiedades</li>
-    </ul>
-  </div>
+    <div id="recycle-bin" class="window">
+        <div class="window-header">
+            <span class="window-title">Papelera de Reciclaje</span>
+            <div class="window-controls">
+                <button class="window-minimize" onclick="minimizeWindow('recycle-bin')">_</button>
+                <button class="window-maximize" onclick="toggleMaximizeWindow('recycle-bin')">[]</button>
+                <button class="window-close" onclick="closeWindow('recycle-bin')">X</button>
+            </div>
+        </div>
+        <div class="window-content recycle-bin-content">
+            <p>La papelera está vacía.</p>
+        </div>
+    </div>
 
-  <script src="script.js"></script>
+    <div id="guestbook" class="window">
+        <div class="window-header">
+            <span class="window-title">Libro de Visitas - v1.0</span>
+            <div class="window-controls">
+                <button class="window-minimize" onclick="minimizeWindow('guestbook')">_</button>
+                <button class="window-maximize" onclick="toggleMaximizeWindow('guestbook')">[]</button>
+                <button class="window-close" onclick="closeWindow('guestbook')">X</button>
+            </div>
+        </div>
+        <div class="window-content guestbook-content">
+            <div class="guestbook-form">
+                <p>¡Deja tu firma en mi muro!</p>
+                <input type="text" id="gb-name" placeholder="Tu Nombre" maxlength="20">
+                <textarea id="gb-msg" placeholder="Escribe un mensaje..." maxlength="100"></textarea>
+                <button onclick="postMessage()">Enviar Firma</button>
+            </div>
+            <div class="guestbook-list" id="gb-list">
+                <p>Cargando mensajes del servidor...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="secret-folder" class="window">
+        <div class="window-header hacker-theme">
+            <span class="window-title">SYSTEM_ROOT/HACKING...</span>
+            <div class="window-controls">
+                <button class="window-close" onclick="closeWindow('secret-folder')" style="background: #333; color: white;">X</button>
+            </div>
+        </div>
+        <div class="window-content secret-content">
+            <div id="terminal-text"></div>
+        </div>
+    </div>
+
+    <div id="msn-messenger" class="window">
+        <div class="window-header msn-theme">
+            <span class="window-title">MirkoBot - Conversación</span>
+            <div class="window-controls">
+                <button class="window-minimize" onclick="minimizeWindow('msn-messenger')">_</button>
+                <button class="window-close" onclick="closeWindow('msn-messenger')">X</button>
+            </div>
+        </div>
+        <div class="window-content msn-content">
+            <div class="msn-top-bar">
+                <img src="images/user-pic.png" alt="Buddy">
+                <div class="msn-status">
+                    <strong>MirkoBot (Técnico Web)</strong>
+                    <span>&lt;Disponible para trabajar&gt;</span>
+                </div>
+            </div>
+            <div class="msn-chat-history" id="msn-history">
+            </div>
+            <div class="msn-input-area">
+                <p>Selecciona una pregunta:</p>
+                <div class="msn-options">
+                    <button onclick="askBot('tech')">¿Qué tecnologías usas?</button>
+                    <button onclick="askBot('exp')">¿Tienes experiencia?</button>
+                    <button onclick="askBot('hire')">¿Cómo te contrato?</button>
+                    <button onclick="askBot('nudge')">¡Zumbido!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notepad" class="window">
+        <div class="window-header">
+            <span class="window-title" id="notepad-title">Bloc de notas</span>
+            <div class="window-controls">
+                <button class="window-minimize" onclick="minimizeWindow('notepad')">_</button>
+                <button class="window-maximize" onclick="toggleMaximizeWindow('notepad')">[]</button>
+                <button class="window-close" onclick="closeWindow('notepad')">X</button>
+            </div>
+        </div>
+        <div class="window-content notepad-content">
+            <div class="notepad-menu">
+                <span>Archivo</span><span>Edición</span><span>Formato</span><span>Ver</span><span>Ayuda</span>
+            </div>
+            <textarea id="notepad-area" readonly></textarea>
+        </div>
+    </div>
+
+    <div id="context-menu">
+        <ul>
+            <li onclick="refreshDesktop()">Actualizar</li>
+            <hr>
+            <li class="dummy-option" onclick="closeContextMenu()">Organizar iconos por</li>
+            <li class="dummy-option" onclick="closeContextMenu()">Nuevo</li>
+            <hr>
+            <li onclick="openWindowFromMenu('about')">Propiedades</li>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
