@@ -176,7 +176,51 @@
             </div>
         </div>
         <div class="window-content project-showcase">
-            <p>Estoy trabajando en mejorar mis proyectos y subirlos aquí. ¡Vuelve pronto!</p>
+            
+            <!-- TARJETA DEL PROYECTO 1: TOP BURGERS -->
+            <div class="project-card">
+                <div class="project-card-header">
+                    <strong>Top Burgers - Menú Digital & Web App</strong>
+                </div>
+                <div class="project-card-body">
+                    <img src="images/projects/top-burgers.png" alt="Top Burgers Web App" class="project-img">
+                    <div class="project-info">
+                        <p>Plataforma web interactiva y menú digital para hamburguesería. Diseñada para optimizar la experiencia de usuario y visualización de catálogo con estética moderna.</p>
+                        <div class="project-tags">
+                            <span>Angular</span>
+                            <span>TypeScript</span>
+                            <span>PrimeNG</span>
+                            <span>UX/UI Design</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/MirkoVidal" target="_blank" class="xp-btn">💻 Ver Código (GitHub)</a>
+                            <a href="#" class="xp-btn" onclick="alert('Demo en mantenimiento. ¡Muy pronto online!'); return false;">🌐 Ver Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TARJETA DEL PROYECTO 2: INTEGRATORIO UNER -->
+            <div class="project-card">
+                <div class="project-card-header">
+                    <strong>Sistema Integrador Universitario (UNER)</strong>
+                </div>
+                <div class="project-card-body">
+                    <img src="images/projects-icon.png" alt="Proyecto Integrador" class="project-img">
+                    <div class="project-info">
+                        <p>Desarrollo y gestión web para trabajo integrador de la carrera Tecnicatura en Desarrollo Web en UNER. Implementación de backend y bases de datos.</p>
+                        <div class="project-tags">
+                            <span>Node.js</span>
+                            <span>SQL</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/MirkoVidal" target="_blank" class="xp-btn">💻 Ver Código</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -348,8 +392,8 @@
         <div class="window-content guestbook-content">
             <div class="guestbook-form">
                 <p>¡Deja tu firma en mi muro!</p>
-                <input type="text" id="gb-name" placeholder="Tu Nombre" maxlength="20">
-                <textarea id="gb-msg" placeholder="Escribe un mensaje..." maxlength="100"></textarea>
+                <input type="text" id="gb-name" placeholder="Tu Nombre" maxlength="100">
+                <textarea id="gb-msg" placeholder="Escribe un mensaje..." maxlength="5000"></textarea>
                 <button onclick="postMessage()">Enviar Firma</button>
             </div>
             <div class="guestbook-list" id="gb-list">

@@ -1463,3 +1463,62 @@ canvas {
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
 }
+
+/* ESTILOS PARA LAS TARJETAS DE PROYECTOS XP */
+.project-card {
+    border: 2px solid #0055ea;
+    background-color: #ece9d8;
+    margin-bottom: 15px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.project-card-header {
+    background: linear-gradient(to right, #0058ee, #3593ff);
+    color: white;
+    padding: 5px 10px;
+    font-size: 13px;
+}
+
+.project-card-body {
+    display: flex;
+    padding: 10px;
+    gap: 15px;
+    align-items: center;
+}
+
+.project-img {
+    width: 120px;
+    height: 90px;
+    object-fit: cover;
+    border: 1px solid #808080;
+    background-color: #fff;
+}
+
+.project-tags {
+    margin: 8px 0;
+}
+
+.project-tags span {
+    background-color: #d4d0c8;
+    border: 1px solid #808080;
+    padding: 2px 6px;
+    font-size: 11px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.xp-btn {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #ece9d8;
+    border: 1px solid #0055ea;
+    color: #000;
+    text-decoration: none;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.xp-btn:hover {
+    background-color: #fff;
+    cursor: pointer;
+}

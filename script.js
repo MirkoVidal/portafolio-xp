@@ -10,6 +10,25 @@ document.body.style.backgroundImage = `url('${selectedBg}')`;
 // ===================================================
 const projectsData = [
     {
+        id: 'top-burgers',
+        title: 'Top Burgers',
+        summary: 'Plataforma web interactiva y menú digital para hamburguesería con estética moderna.',
+        problem: 'Optimizar la visualización del catálogo de productos y mejorar la experiencia de usuario en el menú digital.',
+        challenges: 'Desarrollo del frontend con una interfaz rápida, atractiva y adaptable para clientes.',
+        techStack: [
+            { name: 'Angular / TS', icon: 'images/tech/js.png' },
+            { name: 'HTML5', icon: 'images/tech/html.png' },
+            { name: 'CSS3', icon: 'images/tech/css.png' }
+        ],
+        gallery: [
+            'images/projects/top-burgers.png',
+            'images/projects/top-burgers-menu.png',
+            'images/projects/top-burgers-promos.png'
+        ],
+        githubUrl: 'https://github.com/MirkoVidal',
+        demoUrl: 'https://top-burgers-app.vercel.app/'
+    },
+    {
         id: 'backend-auth',
         title: 'XP Auth System',
         summary: 'Backend RESTful desarrollado en Node.js para gestionar la seguridad y datos del portafolio.',
@@ -56,7 +75,7 @@ const projectsData = [
             'images/projects/portfolio/desktop.png'
         ],
         githubUrl: 'https://github.com/MirkoVidal/portafolio-xp',
-        demoUrl: '#'
+        demoUrl: 'https://mirkovidal.github.io/portafolio-xp/'
     }
 ];
 
