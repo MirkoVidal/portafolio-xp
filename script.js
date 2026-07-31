@@ -574,37 +574,38 @@ function renderProjectIcons() {
 document.addEventListener('DOMContentLoaded', renderProjectIcons);
 
 // ===================================================
-// LÓGICA DEL LIBRO DE VISITAS (CONECTADO A RENDER)
+// LÓGICA DEL LIBRO DE VISITAS (CONECTADO A SUPABASE)
 // ===================================================
-const API_URL = "https://xp-backend-auth.onrender.com/api/guestbook";
+const SUPABASE_URL = "https://bquhqsxvhfemsqdurujq.supabase.co"; 
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJxdWhxc3h2aGZlbXNxZHVydWpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0NjkzNjQsImV4cCI6MjEwMTA0NTM2NH0.L_0cvzEp_VfJ4bmjgpL2NmWHUqaI45Gp7TkKQaX_iG4";
 
 async function loadMessages() {
     const listElement = document.getElementById('gb-list');
-    listElement.innerHTML = '<p>Conectando con el servidor...</p>';
+    if (!listElement) return;
+    
+    listElement.innerHTML = '<p>Cargando reseñas de la nube...</p>';
 
     try {
-        const response = await fetch(API_URL);
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/guestbook?select=*&order=created_at.desc`, {
+            method: "GET",
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`
+            }
+        });
+
+        if (!response.ok) throw new Error("Error al conectar con Supabase");
+
         const data = await response.json();
-
-        // 1. Validamos que la respuesta HTTP sea correcta (200 OK)
-        if (!response.ok) {
-            throw new Error(data.message || `Error del servidor (${response.status})`);
-        }
-
-        // 2. Validamos que 'data' sea realmente un Array antes de usar .forEach()
-        if (!Array.isArray(data)) {
-            throw new Error("El formato de respuesta no es válido.");
-        }
-
         listElement.innerHTML = '';
 
         if (data.length === 0) {
-            listElement.innerHTML = '<p>Aún no hay firmas. ¡Sé el primero!</p>';
+            listElement.innerHTML = '<p>Aún no hay firmas. ¡Sé el primero en dejar una reseña!</p>';
             return;
         }
 
         data.forEach(msg => {
-            const date = new Date(msg.created_at).toLocaleDateString();
+            const date = new Date(msg.created_at).toLocaleDateString('es-AR');
             const entry = document.createElement('div');
             entry.className = 'gb-entry';
             entry.innerHTML = `
@@ -615,8 +616,8 @@ async function loadMessages() {
         });
 
     } catch (error) {
-        console.error("Error capturado:", error);
-        listElement.innerHTML = `<p style="color:red">Error: No se pudieron cargar los mensajes (${error.message}).</p>`;
+        console.error("Error cargando reseñas:", error);
+        listElement.innerHTML = `<p style="color:red">No se pudieron cargar las reseñas.</p>`;
     }
 }
 
@@ -632,22 +633,27 @@ async function postMessage() {
     }
 
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/guestbook`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`,
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            },
             body: JSON.stringify({ name, message })
         });
 
         if (response.ok) {
             nameInput.value = "";
             msgInput.value = "";
-            loadMessages();
+            loadMessages(); // Recarga la lista instantáneamente
         } else {
-            alert("Error al enviar mensaje.");
+            alert("Hubo un problema al guardar la reseña.");
         }
     } catch (error) {
-        console.error(error);
-        alert("No se pudo conectar con el servidor.");
+        console.error("Error guardando reseña:", error);
+        alert("Error de conexión al intentar enviar la firma.");
     }
 }
 
