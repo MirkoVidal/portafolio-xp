@@ -567,6 +567,16 @@ async function loadMessages() {
         const response = await fetch(API_URL);
         const data = await response.json();
 
+        // 1. Validamos que la respuesta HTTP sea correcta (200 OK)
+        if (!response.ok) {
+            throw new Error(data.message || `Error del servidor (${response.status})`);
+        }
+
+        // 2. Validamos que 'data' sea realmente un Array antes de usar .forEach()
+        if (!Array.isArray(data)) {
+            throw new Error("El formato de respuesta no es válido.");
+        }
+
         listElement.innerHTML = '';
 
         if (data.length === 0) {
@@ -579,15 +589,15 @@ async function loadMessages() {
             const entry = document.createElement('div');
             entry.className = 'gb-entry';
             entry.innerHTML = `
-        <strong>${msg.name}</strong> <span>${date}</span>
-        <p>${msg.message}</p>
-      `;
+                <strong>${msg.name}</strong> <span>${date}</span>
+                <p>${msg.message}</p>
+            `;
             listElement.appendChild(entry);
         });
 
     } catch (error) {
-        console.error(error);
-        listElement.innerHTML = '<p style="color:red">Error al conectar con el servidor.</p>';
+        console.error("Error capturado:", error);
+        listElement.innerHTML = `<p style="color:red">Error: No se pudieron cargar los mensajes (${error.message}).</p>`;
     }
 }
 
@@ -675,16 +685,47 @@ function typeWriter() {
     }
 }
 
-function sendEmailToMirko() {
-    const subject = document.getElementById('email-subject').value;
-    const body = document.getElementById('email-body').value;
+async function sendEmailToMirko() {
+    const subject = document.getElementById('email-subject').value.trim();
+    const body = document.getElementById('email-body').value.trim();
 
     if (!body) {
         alert("Por favor escribe un mensaje antes de enviar.");
         return;
     }
-    const mailtoLink = `mailto:mirkovidal2023@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailtoLink, '_blank');
+
+    const button = document.querySelector('.outlook-toolbar button');
+    button.textContent = "⏳ Enviando...";
+    button.disabled = true;
+
+    try {
+        const response = await fetch("https://formsubmit.co/ajax/mirkovidal2023@gmail.com", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                Asunto: subject || "Consulta desde Portafolio XP",
+                Mensaje: body
+            })
+        });
+
+        if (response.ok) {
+            alert("¡Mensaje enviado con éxito! Te responderé pronto a la brevedad.");
+            document.getElementById('email-subject').value = "";
+            document.getElementById('email-body').value = "";
+            closeWindow('contact');
+        } else {
+            alert("Hubo un problema al enviar el mensaje. Intenta nuevamente.");
+        }
+    } catch (error) {
+        console.error("Error enviando correo:", error);
+        alert("Error de conexión al intentar enviar el correo.");
+    } finally {
+        button.textContent = "✉️ Enviar";
+        button.disabled = false;
+    }
 }
 
 // ===================================================
