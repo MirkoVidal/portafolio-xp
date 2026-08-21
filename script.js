@@ -586,7 +586,12 @@ async function loadMessages() {
     listElement.innerHTML = '<p>Cargando reseñas de la nube...</p>';
 
     try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/guestbook?select=*&order=created_at.desc`, {
+        // Usamos URL y URLSearchParams para evitar problemas con caracteres especiales como "&ord"
+        const endpoint = new URL(`${SUPABASE_URL}/rest/v1/guestbook`);
+        endpoint.searchParams.append('select', '*');
+        endpoint.searchParams.append('order', 'created_at.desc');
+
+        const response = await fetch(endpoint, {
             method: "GET",
             headers: {
                 "apikey": SUPABASE_KEY,
